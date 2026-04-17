@@ -1,0 +1,5 @@
+export const REPO_URL = "https://github.com/ramonclaudio/tanstack-cn"
+export const CREATE_COMMAND = "bunx create-tanstack-cn@latest"
+export const NPM_CREATE_COMMAND = "npm create tanstack-cn@latest"
+export const DEGIT_TEMPLATE = "github:ramonclaudio/tanstack-cn/templates/default"
+export const VERSION = "0.2.0"
