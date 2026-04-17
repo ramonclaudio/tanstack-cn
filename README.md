@@ -153,8 +153,8 @@ src/
 | ------------------ | -------------------------------------------------------------- |
 | `vite.config.ts`   | Vite 8 + Nitro SSR + TanStack Start plugin order               |
 | `tsconfig.json`    | TypeScript 6 strict, `isolatedModules`, `verbatimModuleSyntax` |
-| `oxlint.config.ts` | Oxlint rules, plugins, overrides, type-aware linting           |
-| `oxfmt.config.ts`  | Oxfmt formatter with import and Tailwind sorting               |
+| `.oxlintrc.json`   | Oxlint rules, plugins, overrides, type-aware linting           |
+| `.oxfmtrc.json`    | Oxfmt formatter with import and Tailwind sorting               |
 | `vitest.config.ts` | jsdom environment + React CJS interop via `deps.optimizer`     |
 | `components.json`  | shadcn `base-luma` theme config                                |
 
