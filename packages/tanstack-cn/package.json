@@ -1,0 +1,63 @@
+{
+  "name": "tanstack-cn",
+  "version": "0.1.0",
+  "description": "tanstack-cn starter. Use create-tanstack-cn to scaffold. TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn base-luma on Base UI.",
+  "license": "MIT",
+  "author": "Ramon Claudio <rmncldyo@gmail.com> (https://github.com/ramonclaudio)",
+  "homepage": "https://github.com/ramonclaudio/tanstack-cn#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramonclaudio/tanstack-cn.git",
+    "directory": "packages/tanstack-cn"
+  },
+  "bugs": {
+    "url": "https://github.com/ramonclaudio/tanstack-cn/issues"
+  },
+  "keywords": [
+    "tanstack-cn",
+    "tanstack-start",
+    "tanstack-router",
+    "shadcn-ui",
+    "base-ui",
+    "tailwindcss-v4",
+    "base-luma",
+    "oxc",
+    "oxlint",
+    "oxfmt",
+    "react-19",
+    "typescript",
+    "bun",
+    "starter",
+    "template"
+  ],
+  "type": "module",
+  "bin": "./dist/cli.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist"],
+  "engines": {
+    "node": ">=20.10"
+  },
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsup": "^8.5.0",
+    "typescript": "^6.0.2"
+  }
+}
