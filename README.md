@@ -72,7 +72,6 @@ Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix
 - `public/llms.txt` + `public/llms-full.txt` for Claude, Perplexity, ChatGPT Search
 - `env.example` documenting the `VITE_SITE_URL` pattern, typed via `src/vite-env.d.ts`
 - GitHub Actions CI: typecheck, lint, fmt:check, test, build
-- Dependabot weekly grouped updates (TanStack, Base UI, HugeIcons, testing, oxc, react, tailwind, dev-tools)
 
 ## Repo layout
 
