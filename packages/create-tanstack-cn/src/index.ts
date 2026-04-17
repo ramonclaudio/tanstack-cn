@@ -1,5 +1,5 @@
 import { existsSync } from "node:fs"
-import { cp, readFile, writeFile } from "node:fs/promises"
+import { cp, readFile, rename, writeFile } from "node:fs/promises"
 import { basename, dirname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -53,6 +53,7 @@ async function main() {
   const copySpin = ora(`Copying template to ${kleur.cyan(relative(process.cwd(), target) || ".")}`).start()
   try {
     await cp(TEMPLATE_DIR, target, { recursive: true })
+    await restoreStrippedDotfiles(target)
     await rewritePackage(target)
     copySpin.succeed(`Template copied`)
   } catch (err) {
@@ -106,6 +107,16 @@ async function resolveName(argDir: string | undefined, yes: boolean): Promise<st
   )
 
   return res.name as string
+}
+
+// Restore dotfiles that npm strips from published tarballs. Keep this list in
+// sync with tsup.config.ts RENAMES.
+async function restoreStrippedDotfiles(target: string): Promise<void> {
+  const renames: Array<[string, string]> = [["_gitignore", ".gitignore"]]
+  for (const [from, to] of renames) {
+    const src = join(target, from)
+    if (existsSync(src)) await rename(src, join(target, to))
+  }
 }
 
 async function rewritePackage(target: string): Promise<void> {
