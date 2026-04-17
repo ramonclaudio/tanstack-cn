@@ -1,17 +1,24 @@
 # tanstack-cn
 
-![tanstack-cn](public/og.png)
+![tanstack-cn](templates/default/public/og.png)
 
-TanStack Start on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn/ui base-luma on Base UI, Oxlint+Oxfmt. No Radix, no ESLint, no Prettier.
+TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn/ui `base-luma` on Base UI, Oxlint+Oxfmt. No Radix, no ESLint, no Prettier.
 
 [Live demo](https://tanstack-cn.vercel.app) · [Use this template](https://github.com/ramonclaudio/tanstack-cn/generate)
 
+## Scaffold
+
 ```bash
-bunx degit ramonclaudio/tanstack-cn my-app
-cd my-app
-bun install
-bun run dev
+bunx create-tanstack-cn@latest my-app
+# or
+npm create tanstack-cn@latest my-app
+# or clone the template directly:
+bunx degit ramonclaudio/tanstack-cn/templates/default my-app
 ```
+
+`bunx tanstack-cn` prints the same instructions and exits.
+
+The CLI copies the template, rewrites `package.json`, installs dependencies with the detected package manager (bun / pnpm / yarn / npm), and initializes a git repo with an initial commit. Flags: `-y`, `--no-install`, `--no-git`.
 
 ## Why this exists
 
@@ -38,12 +45,12 @@ Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix
 ### UI and routing
 
 - `/` demo route that exercises Button, Card, Alert, InputGroup, Kbd, Empty, Separator, Sonner
-- Light/dark/system theme with no-flash script in `src/components/theme-provider.tsx`
+- Light/dark/system theme with no-flash script in `templates/default/src/components/theme-provider.tsx`
 - Error boundary and 404 route hooked into the root
 
 ### SEO and social
 
-- `src/lib/seo.ts` helper: absolute og:image, og:url, og:image:width/height, twitter:card auto-promotion
+- `templates/default/src/lib/seo.ts` helper: absolute og:image, og:url, og:image:width/height, twitter:card auto-promotion
 - Canonical link, `og:site_name`, full Twitter meta, JSON-LD `@graph` (WebSite + SoftwareSourceCode + Person)
 - OG image: 2400×1260 PNG (2x of 1200×630). Retina-crisp, under 500KB, unfurls on X, Facebook, LinkedIn, Discord, Slack, iMessage
 - `public/sitemap.xml`, `public/robots.txt` with AI training crawler opt-outs (GPTBot, ClaudeBot, CCBot, Google-Extended, Applebot-Extended, Bytespider, meta-externalagent, etc.)
@@ -65,136 +72,65 @@ Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix
 - `public/llms.txt` + `public/llms-full.txt` for Claude, Perplexity, ChatGPT Search
 - `env.example` documenting the `VITE_SITE_URL` pattern, typed via `src/vite-env.d.ts`
 - GitHub Actions CI: typecheck, lint, fmt:check, test, build
-- Dependabot weekly grouped updates (TanStack, Base UI, HugeIcons, testing, oxc, react, tailwind, dev-tools)
 
-## Scripts
+## Repo layout
 
-| Script                       | What it does                                       |
-| ---------------------------- | -------------------------------------------------- |
-| `bun run dev`                | Vite 8 dev server with HMR on `:3000`              |
-| `bun run build`              | `tsc --noEmit && vite build`                       |
-| `bun run start`              | Nitro SSR server from `.output/`                   |
-| `bun run preview`            | `vite preview`                                     |
-| `bun run typecheck`          | `tsc --noEmit`                                     |
-| `bun run lint`               | `oxlint`                                           |
-| `bun run lint:fix`           | `oxlint --fix` (safe fixes only)                   |
-| `bun run lint:fix:suggest`   | `oxlint --fix --fix-suggestions`                   |
-| `bun run lint:fix:dangerous` | `oxlint --fix --fix-suggestions --fix-dangerously` |
-| `bun run fmt`                | `oxfmt`                                            |
-| `bun run fmt:check`          | `oxfmt --check`                                    |
-| `bun run test`               | `vitest run`                                       |
-| `bun run test:watch`         | `vitest`                                           |
-| `bun run clean`              | Trash `node_modules`, build artifacts, `.DS_Store` |
+```
+tanstack-cn/
+├── packages/
+│   ├── create-tanstack-cn/   # published as `create-tanstack-cn`, scaffolder CLI
+│   └── tanstack-cn/          # published as `tanstack-cn`, redirect CLI
+└── templates/
+    └── default/              # the starter code the CLI scaffolds
+```
 
-## Adding shadcn components
+| Package | Purpose |
+| --- | --- |
+| [`create-tanstack-cn`](packages/create-tanstack-cn) | Interactive scaffolder. Use via `bunx create-tanstack-cn@latest my-app`. |
+| [`tanstack-cn`](packages/tanstack-cn) | Name reservation. `bunx tanstack-cn` prints install instructions and exits. |
+| [`templates/default`](templates/default) | The starter that ships. Full scaffold-level README lives there. |
+
+## Lighthouse (desktop, 5-run p50)
+
+| Metric | Score |
+| --- | --- |
+| Performance | 98 |
+| Accessibility | 100 |
+| Best Practices | 100 |
+| SEO | 100 |
+| LCP | 842ms |
+| FCP | 842ms |
+| CLS | 0.000 |
+| TBT | 0ms |
+
+## Development
 
 ```bash
-bunx shadcn@latest add sheet dialog tabs
+bun install                   # install monorepo workspaces
+bun run build                 # build both packages
+bun run typecheck             # typecheck both packages
+bun run template:dev          # run the template locally on :3000
+bun run template:test         # run the template test suite
 ```
 
-Components land in `src/components/ui/`. Import via the `@/` alias:
-
-```tsx
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-```
-
-The `base-luma` style is already pinned in `components.json`, so every new component picks it up automatically.
-
-## Before you publish
-
-One search-and-replace across the repo swaps all the placeholder branding:
+### Testing the CLI locally
 
 ```bash
-grep -r "ramonclaudio/tanstack-cn\|tanstack-cn.vercel.app" --include='*.{ts,tsx,json,md,xml,txt,webmanifest}' -l
-```
-
-Files to update:
-
-- `src/lib/site.ts`: `SITE_URL`, `SITE_NAME`, `SITE_TITLE`, `SITE_DESCRIPTION`
-- `package.json`: `name`, `description`, `author`, `homepage`, `repository`, `bugs`, `keywords`
-- `public/robots.txt`: `Sitemap:` line
-- `public/sitemap.xml`: `<loc>` entries
-- `public/.well-known/security.txt`: `Contact:` and `Canonical:`
-- `env.example`, `README.md`
-
-Or set `VITE_SITE_URL` in your `.env` and the SEO helper picks it up at build time.
-
-## Project structure
-
-```
-src/
-├── components/
-│   ├── default-catch-boundary.tsx   # router error boundary
-│   ├── devtools.tsx                 # TanStack devtools (dev only)
-│   ├── not-found.tsx                # 404 page
-│   ├── theme-provider.tsx           # light/dark/system with no-flash script
-│   ├── theme-toggle.tsx             # dropdown toggle using HugeIcons
-│   ├── web-vitals.tsx               # CLS/FID/LCP/INP reporter
-│   └── ui/                          # shadcn/ui base-luma primitives
-├── lib/
-│   ├── report-web-vitals.ts
-│   ├── seo.ts                       # head meta helper
-│   ├── seo.test.ts
-│   ├── site.ts                      # SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION
-│   ├── utils.ts                     # cn() class merger
-│   └── utils.test.ts
-├── routes/
-│   ├── __root.tsx                   # root layout, head, theme, Toaster, skip link
-│   └── index.tsx                    # demo homepage
-├── router.tsx
-├── routeTree.gen.ts                 # auto-generated by TanStack Router
-├── styles.css                       # Tailwind v4 + base-luma theme + reduced-motion
-└── vite-env.d.ts                    # typed import.meta.env
-```
-
-## Configuration
-
-| File               | Purpose                                                        |
-| ------------------ | -------------------------------------------------------------- |
-| `vite.config.ts`   | Vite 8 + Nitro SSR + TanStack Start plugin order               |
-| `tsconfig.json`    | TypeScript 6 strict, `isolatedModules`, `verbatimModuleSyntax` |
-| `.oxlintrc.json`   | Oxlint rules, plugins, overrides, type-aware linting           |
-| `.oxfmtrc.json`    | Oxfmt formatter with import and Tailwind sorting               |
-| `vitest.config.ts` | jsdom environment + React CJS interop via `deps.optimizer`     |
-| `components.json`  | shadcn `base-luma` theme config                                |
-
-## Deploying
-
-Nitro auto-detects the preset. Push and import on any of:
-
-- Vercel
-- Cloudflare Pages / Workers
-- Netlify
-- Node (default)
-- Bun
-- Deno
-
-Security headers ship from Nitro `routeRules` at runtime, so every preset gets the same response headers without extra config files.
-
-```bash
+cd packages/create-tanstack-cn
 bun run build
-bun run start   # Node preset
+node dist/index.js /tmp/scratch-app
 ```
 
-### Optional: platform-specific analytics
+## Release
 
-No analytics or RUM dep is bundled. If you deploy to Vercel and want their free tools:
+Packages publish via tag push. Bump `packages/*/package.json` versions to match the tag, commit, tag, push:
 
 ```bash
-bun add @vercel/speed-insights @vercel/analytics
+git tag v0.2.0
+git push --follow-tags
 ```
 
-Then mount `<SpeedInsights />` and `<Analytics />` in `src/routes/__root.tsx`. For Cloudflare, use their Web Analytics script. For Plausible/Umami/PostHog, drop their snippet in the root route's `scripts` array.
-
-## CI
-
-`.github/workflows/ci.yml` runs five gates on every push to `main` and every PR:
-
-1. `typecheck` (TypeScript 6)
-2. `lint` (`oxlint --format=github`)
-3. `fmt:check` (`oxfmt`)
-4. `test` (Vitest 4)
-5. `build` (Vite 8 + Rolldown + Oxc + Nitro)
+`.github/workflows/publish.yml` validates that both package versions match the tag, builds, and publishes both with OIDC provenance. Requires the `NPM_TOKEN` repo secret.
 
 ## License
 
