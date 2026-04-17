@@ -1,0 +1,93 @@
+# tanstack-cn: full context for AI assistants
+
+> TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn base-luma on Base UI, Oxlint+Oxfmt. No Radix, no ESLint, no Prettier.
+
+## What this repo is
+
+A minimal, opinionated TanStack Start template wired for production launch:
+SSR via Nitro 3, React 19, TypeScript 6, Tailwind v4, shadcn/ui base-luma theme
+on Base UI primitives, Vitest 4 + jsdom, Oxlint + Oxfmt, Bun runtime.
+
+Unlike other TanStack + shadcn starters, this one ships:
+
+- Base UI (`@base-ui/react`) instead of Radix
+- Oxlint + Oxfmt instead of ESLint + Prettier
+- base-luma theme (OKLch, rounded-4xl, soft rings) instead of neutral/stone
+- Full launch baseline: OG/Twitter meta, JSON-LD @graph, PWA icons (any + maskable + monochrome), PWA screenshots, manifest with shortcuts and launch_handler, robots.txt with AI crawler opt-outs, sitemap.xml, security.txt, llms.txt, Nitro routeRules security headers, skip link, prefers-reduced-motion, theme-color per scheme, color-scheme meta, Speculation Rules API for prerender
+
+## Repository
+
+- GitHub: https://github.com/ramonclaudio/tanstack-cn
+- License: MIT
+- Install: `bunx degit ramonclaudio/tanstack-cn my-app`
+- Author: Ramon Claudio (https://github.com/ramonclaudio)
+
+## Stack detail
+
+- **TanStack Start** + **TanStack Router**: file-based routing, SSR via Nitro 3
+- **Vite 8**: Rolldown bundler, Oxc plugins
+- **Nitro 3**: SSR build, deploy-agnostic (Vercel / Cloudflare / Netlify / Node / Bun / Deno)
+- **React 19**: automatic JSX transform
+- **TypeScript 6**: strict, isolatedModules, verbatimModuleSyntax
+- **Tailwind CSS v4**: `@tailwindcss/vite` plugin
+- **shadcn/ui**: base-luma theme pinned in `components.json`
+- **Base UI**: `@base-ui/react` primitives (not Radix)
+- **HugeIcons**: `@hugeicons/core-free-icons` + `@hugeicons/react`
+- **Geist Variable**: via `@fontsource-variable/geist`
+- **Oxlint 1.59**: 232 rules, 8 plugins, type-aware via `oxlint-tsgolint`
+- **Oxfmt**: native import + Tailwind + package.json field sorting
+- **Vitest 4**: jsdom environment + `@testing-library/react`
+- **Sonner**: toast primitive
+- **web-vitals**: lazy-loaded after hydration, reports CLS / FCP / INP / LCP / TTFB
+- **Bun**: runtime and package manager
+
+## Key files
+
+- `src/routes/__root.tsx`: root layout, head (meta + OG + JSON-LD + speculation rules), theme, Toaster, skip link
+- `src/routes/index.tsx`: demo homepage
+- `src/lib/site.ts`: SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_*, REPO_URL, SITE_LOCALE, SITE_OG_IMAGE_ALT
+- `src/lib/seo.ts`: emits og, twitter, canonical, description tags (absolute URLs for og:image)
+- `src/components/theme-provider.tsx`: light/dark/system with no-flash script
+- `src/styles.css`: Tailwind v4 + base-luma + prefers-reduced-motion
+- `vite.config.ts`: Vite 8 + Nitro SSR + `routeRules` security headers
+- `public/manifest.webmanifest`: PWA manifest
+- `public/robots.txt`: AI crawler opt-outs (GPTBot, ClaudeBot, CCBot, Google-Extended, Applebot-Extended, Bytespider, meta-externalagent, anthropic-ai, cohere-ai, etc.)
+- `public/sitemap.xml`: minimal static sitemap
+- `public/og.png`: 2400×1260 OG card (retina 2x of 1200×630)
+- `public/.well-known/security.txt`: RFC 9116
+
+## Scripts
+
+- `bun run dev`: Vite dev server with HMR on :3000
+- `bun run build`: `tsc --noEmit && vite build`
+- `bun run start`: Nitro SSR server from `.output/`
+- `bun run preview`: `vite preview`
+- `bun run typecheck`: `tsc --noEmit`
+- `bun run lint` / `lint:fix` / `lint:fix:suggest` / `lint:fix:dangerous`: oxlint variants
+- `bun run fmt` / `fmt:check`: oxfmt
+- `bun run test` / `test:watch`: vitest
+- `bun run analyze`: build with rollup-plugin-visualizer (`.output/stats.html`)
+
+## Conventions
+
+- Client-exposed env vars must be prefixed `VITE_` (available via `import.meta.env`)
+- Server-only env vars go bare (available via `process.env` in server functions)
+- shadcn style pinned to `base-luma` in `components.json`; `bunx shadcn@latest add` respects it
+- TypeScript strict; prefer early returns, small functions, no deep nesting
+- Conventional commits; Oxlint + Oxfmt handle lint + format
+- No README, docs, or config files generated unless explicitly requested
+
+## Known integrations
+
+- **Vercel**: Nitro auto-detects the preset. Platform-agnostic security headers ship from `routeRules` in `vite.config.ts`. Add `@vercel/speed-insights` + `@vercel/analytics` manually if you want Vercel's RUM.
+- **Cloudflare / Netlify / Node / Bun / Deno**: Nitro auto-detects. Same headers, no config change needed.
+- **Sentry**: not installed; drop in via `npm i @sentry/react` + TanStack Start SDK when needed.
+- **Convex / Better Auth / Stripe / RevenueCat**: none bundled; user's choice per app.
+
+## Lighthouse (desktop, cable, no CPU throttle, 5 runs p50)
+
+- Performance: 98
+- Accessibility: 100
+- Best Practices: 100
+- SEO: 100
+- LCP: 842ms, FCP: 842ms, CLS: 0.000, TBT: 0ms
