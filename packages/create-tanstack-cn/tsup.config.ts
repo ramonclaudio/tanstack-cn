@@ -19,6 +19,8 @@ const EXCLUDE_DIRS = new Set([
   ".tanstack",
   ".wrangler",
   ".vinxi",
+  ".vercel",
+  ".git",
 ])
 const EXCLUDE_FILES = new Set([
   "bun.lock",
