@@ -4,13 +4,17 @@ import { basename, dirname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 
 import { Command } from "commander"
+import { execa } from "execa"
 import kleur from "kleur"
+import ora from "ora"
 import prompts from "prompts"
 
 import pkg from "../package.json" with { type: "json" }
 
 const here = dirname(fileURLToPath(import.meta.url))
 const TEMPLATE_DIR = join(here, "templates", "default")
+
+type PM = "bun" | "pnpm" | "yarn" | "npm"
 
 type Flags = {
   install: boolean
@@ -25,9 +29,9 @@ async function main() {
       "Scaffold a new tanstack-cn project. TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn base-luma on Base UI.",
     )
     .argument("[directory]", "project directory name")
-    .option("--no-install", "skip bun install after scaffold")
+    .option("--no-install", "skip installing dependencies")
     .option("--no-git", "skip git init")
-    .option("-y, --yes", "accept defaults and skip prompts")
+    .option("-y, --yes", "accept defaults, skip prompts")
     .version(pkg.version, "-v, --version")
     .parse()
 
@@ -44,20 +48,45 @@ async function main() {
     process.exit(1)
   }
 
-  console.log(kleur.gray(`\nScaffolding into ${kleur.white(target)}`))
+  const pm = detectPackageManager()
 
-  await cp(TEMPLATE_DIR, target, { recursive: true })
-  await rewritePackage(target)
+  const copySpin = ora(`Copying template to ${kleur.cyan(relative(process.cwd(), target) || ".")}`).start()
+  try {
+    await cp(TEMPLATE_DIR, target, { recursive: true })
+    await rewritePackage(target)
+    copySpin.succeed(`Template copied`)
+  } catch (err) {
+    copySpin.fail(`Template copy failed`)
+    throw err
+  }
 
-  nextSteps(target, flags)
-}
+  if (flags.install) {
+    const installSpin = ora(`Installing dependencies with ${kleur.cyan(pm)}`).start()
+    try {
+      await execa(pm, ["install"], { cwd: target, stdio: "ignore" })
+      installSpin.succeed(`Installed with ${pm}`)
+    } catch {
+      installSpin.warn(`Install skipped. Run ${kleur.cyan(`${pm} install`)} manually.`)
+    }
+  }
 
-function toPackageName(raw: string): string {
-  const name = basename(raw)
-    .toLowerCase()
-    .replace(/[^a-z0-9-]/g, "-")
-    .replace(/^-+|-+$/g, "")
-  return name || "my-tanstack-cn-app"
+  if (flags.git) {
+    const gitSpin = ora(`Initializing git`).start()
+    try {
+      await execa("git", ["init", "--initial-branch=main"], { cwd: target, stdio: "ignore" })
+      await execa("git", ["add", "-A"], { cwd: target, stdio: "ignore" })
+      await execa(
+        "git",
+        ["commit", "-m", "feat: initial commit", "--no-gpg-sign"],
+        { cwd: target, stdio: "ignore" },
+      )
+      gitSpin.succeed(`Git repo initialized`)
+    } catch {
+      gitSpin.warn(`Git init skipped`)
+    }
+  }
+
+  nextSteps(target, flags, pm)
 }
 
 async function resolveName(argDir: string | undefined, yes: boolean): Promise<string> {
@@ -101,21 +130,35 @@ async function rewritePackage(target: string): Promise<void> {
   await writeFile(pkgPath, `${JSON.stringify(cleaned, null, 2)}\n`)
 }
 
+function toPackageName(raw: string): string {
+  const name = basename(raw)
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, "-")
+    .replace(/^-+|-+$/g, "")
+  return name || "my-tanstack-cn-app"
+}
+
+function detectPackageManager(): PM {
+  const ua = process.env.npm_config_user_agent ?? ""
+  if (ua.startsWith("bun")) return "bun"
+  if (ua.startsWith("pnpm")) return "pnpm"
+  if (ua.startsWith("yarn")) return "yarn"
+  if (ua.startsWith("npm")) return "npm"
+  return "bun"
+}
+
 function intro(): void {
   console.log()
   console.log(kleur.bold().cyan("create-tanstack-cn") + kleur.gray(` v${pkg.version}`))
 }
 
-function nextSteps(target: string, flags: Flags): void {
+function nextSteps(target: string, flags: Flags, pm: PM): void {
   const cdPath = relative(process.cwd(), target) || "."
-  console.log()
-  console.log(kleur.green("✓") + " template copied")
   console.log()
   console.log(kleur.bold("Next steps:"))
   console.log(kleur.gray("  cd ") + kleur.cyan(cdPath))
-  if (flags.install) console.log(kleur.gray("  bun install"))
-  if (flags.git) console.log(kleur.gray("  git init && git add -A && git commit -m 'chore: init'"))
-  console.log(kleur.gray("  bun run dev"))
+  if (!flags.install) console.log(kleur.gray(`  ${pm} install`))
+  console.log(kleur.gray(`  ${pm} run dev`))
   console.log()
   console.log(kleur.gray("Docs: ") + kleur.cyan("https://github.com/ramonclaudio/tanstack-cn"))
   console.log()
