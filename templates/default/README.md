@@ -1,71 +1,14 @@
-# tanstack-cn
+# tanstack-cn app
 
-![tanstack-cn](public/og.png)
+Scaffolded from [`create-tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn). TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn `base-luma` on Base UI. Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. Bun runtime.
 
-TanStack Start on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn/ui base-luma on Base UI, Oxlint+Oxfmt. No Radix, no ESLint, no Prettier.
-
-[Live demo](https://tanstack-cn.vercel.app) · [Use this template](https://github.com/ramonclaudio/tanstack-cn/generate)
+## Develop
 
 ```bash
-bunx degit ramonclaudio/tanstack-cn my-app
-cd my-app
-bun install
 bun run dev
 ```
 
-## Why this exists
-
-Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix, ESLint, Prettier, Webpack-era Vite. This one doesn't. Latest majors across the board, SEO and security plumbing wired, nothing to strip out.
-
-## Stack
-
-- TanStack Start + TanStack Router with file-based routing
-- Vite 8 with Rolldown and Oxc plugins
-- Nitro 3 for SSR output
-- React 19 with the automatic JSX transform
-- TypeScript 6, `strict`, `verbatimModuleSyntax`
-- Tailwind CSS v4 via `@tailwindcss/vite`
-- shadcn/ui `base-luma` theme on `@base-ui/react` (not Radix)
-- HugeIcons + Geist Variable font
-- Oxlint 1.59 with 232 rules across 8 native plugins, type-aware via `oxlint-tsgolint`
-- Oxfmt with native import sorting, Tailwind class sorting, package.json field sorting
-- Vitest 4 + `@testing-library/react` + jsdom
-- Sonner toasts, theme provider, web vitals reporter
-- Bun as runtime and package manager
-
-## What's wired
-
-### UI and routing
-
-- `/` demo route that exercises Button, Card, Alert, InputGroup, Kbd, Empty, Separator, Sonner
-- Light/dark/system theme with no-flash script in `src/components/theme-provider.tsx`
-- Error boundary and 404 route hooked into the root
-
-### SEO and social
-
-- `src/lib/seo.ts` helper: absolute og:image, og:url, og:image:width/height, twitter:card auto-promotion
-- Canonical link, `og:site_name`, full Twitter meta, JSON-LD `@graph` (WebSite + SoftwareSourceCode + Person)
-- OG image: 2400×1260 PNG (2x of 1200×630). Retina-crisp, under 500KB, unfurls on X, Facebook, LinkedIn, Discord, Slack, iMessage
-- `public/sitemap.xml`, `public/robots.txt` with AI training crawler opt-outs (GPTBot, ClaudeBot, CCBot, Google-Extended, Applebot-Extended, Bytespider, meta-externalagent, etc.)
-
-### Icons and PWA
-
-- `favicon.svg` (primary) + multi-size `favicon.ico` fallback
-- `apple-touch-icon.png` (180×180)
-- `manifest.webmanifest` with separate `any`, `maskable`, and `monochrome` icons, plus wide + narrow screenshots and shortcuts
-- `theme-color` with per-scheme `media` queries (bypasses TanStack head dedup by rendering in root JSX)
-- `color-scheme`, `mobile-web-app-capable`, `apple-mobile-web-app-title`
-
-### Launch baseline
-
-- Nitro `routeRules` in `vite.config.ts` emit platform-agnostic security headers on every preset (Vercel, Cloudflare, Netlify, Node, Bun): `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` (camera/mic/geo/browsing-topics/interest-cohort off), `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`, `Origin-Agent-Cluster`
-- Speculation Rules API: internal links prerender on 200ms hover (instant nav)
-- Skip link, `<main id="main">` landmark, `prefers-reduced-motion` respected globally
-- `public/.well-known/security.txt` per RFC 9116
-- `public/llms.txt` + `public/llms-full.txt` for Claude, Perplexity, ChatGPT Search
-- `env.example` documenting the `VITE_SITE_URL` pattern, typed via `src/vite-env.d.ts`
-- GitHub Actions CI: typecheck, lint, fmt:check, test, build
-- Dependabot weekly grouped updates (TanStack, Base UI, HugeIcons, testing, oxc, react, tailwind, dev-tools)
+Dev server on `http://localhost:3000`.
 
 ## Scripts
 
@@ -98,26 +41,24 @@ Components land in `src/components/ui/`. Import via the `@/` alias:
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 ```
 
-The `base-luma` style is already pinned in `components.json`, so every new component picks it up automatically.
+The `base-luma` style is pinned in `components.json`, so every new component picks it up.
 
 ## Before you publish
 
-One search-and-replace across the repo swaps all the placeholder branding:
+Search and replace the placeholder URLs, or set `VITE_SITE_URL` in `.env` and let the SEO helper pick it up.
 
 ```bash
-grep -r "ramonclaudio/tanstack-cn\|tanstack-cn.vercel.app" --include='*.{ts,tsx,json,md,xml,txt,webmanifest}' -l
+grep -r "ramonclaudio/tanstack-cn\|tanstack-cn.vercel.app" -l
 ```
 
 Files to update:
 
-- `src/lib/site.ts`: `SITE_URL`, `SITE_NAME`, `SITE_TITLE`, `SITE_DESCRIPTION`
+- `src/lib/site.ts`: `SITE_URL`, `SITE_NAME`, `SITE_TITLE`, `SITE_DESCRIPTION`, `AUTHOR_*`, `REPO_URL`
 - `package.json`: `name`, `description`, `author`, `homepage`, `repository`, `bugs`, `keywords`
 - `public/robots.txt`: `Sitemap:` line
 - `public/sitemap.xml`: `<loc>` entries
 - `public/.well-known/security.txt`: `Contact:` and `Canonical:`
-- `env.example`, `README.md`
-
-Or set `VITE_SITE_URL` in your `.env` and the SEO helper picks it up at build time.
+- `env.example`
 
 ## Project structure
 
@@ -134,68 +75,31 @@ src/
 ├── lib/
 │   ├── report-web-vitals.ts
 │   ├── seo.ts                       # head meta helper
-│   ├── seo.test.ts
 │   ├── site.ts                      # SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION
 │   ├── utils.ts                     # cn() class merger
-│   └── utils.test.ts
+│   └── *.test.ts
 ├── routes/
 │   ├── __root.tsx                   # root layout, head, theme, Toaster, skip link
 │   └── index.tsx                    # demo homepage
 ├── router.tsx
 ├── routeTree.gen.ts                 # auto-generated by TanStack Router
-├── styles.css                       # Tailwind v4 + base-luma theme + reduced-motion
+├── styles.css                       # Tailwind v4 + base-luma + reduced-motion
 └── vite-env.d.ts                    # typed import.meta.env
 ```
 
-## Configuration
-
-| File               | Purpose                                                        |
-| ------------------ | -------------------------------------------------------------- |
-| `vite.config.ts`   | Vite 8 + Nitro SSR + TanStack Start plugin order               |
-| `tsconfig.json`    | TypeScript 6 strict, `isolatedModules`, `verbatimModuleSyntax` |
-| `.oxlintrc.json`   | Oxlint rules, plugins, overrides, type-aware linting           |
-| `.oxfmtrc.json`    | Oxfmt formatter with import and Tailwind sorting               |
-| `vitest.config.ts` | jsdom environment + React CJS interop via `deps.optimizer`     |
-| `components.json`  | shadcn `base-luma` theme config                                |
-
 ## Deploying
 
-Nitro auto-detects the preset. Push and import on any of:
-
-- Vercel
-- Cloudflare Pages / Workers
-- Netlify
-- Node (default)
-- Bun
-- Deno
-
-Security headers ship from Nitro `routeRules` at runtime, so every preset gets the same response headers without extra config files.
+Nitro auto-detects the preset. Push to Vercel, Cloudflare Pages, Netlify, or run via Node or Bun. Security headers ship from `routeRules` in `vite.config.ts`, same on every preset.
 
 ```bash
 bun run build
-bun run start   # Node preset
+bun run start   # Node
 ```
 
-### Optional: platform-specific analytics
+## Upstream
 
-No analytics or RUM dep is bundled. If you deploy to Vercel and want their free tools:
-
-```bash
-bun add @vercel/speed-insights @vercel/analytics
-```
-
-Then mount `<SpeedInsights />` and `<Analytics />` in `src/routes/__root.tsx`. For Cloudflare, use their Web Analytics script. For Plausible/Umami/PostHog, drop their snippet in the root route's `scripts` array.
-
-## CI
-
-`.github/workflows/ci.yml` runs five gates on every push to `main` and every PR:
-
-1. `typecheck` (TypeScript 6)
-2. `lint` (`oxlint --format=github`)
-3. `fmt:check` (`oxfmt`)
-4. `test` (Vitest 4)
-5. `build` (Vite 8 + Rolldown + Oxc + Nitro)
+Full docs, stack rationale, and release notes: [`ramonclaudio/tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn).
 
 ## License
 
-MIT © [Ramon Claudio](https://github.com/ramonclaudio)
+MIT
