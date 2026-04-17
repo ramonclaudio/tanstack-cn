@@ -1,5 +1,10 @@
 # tanstack-cn
 
+[![CI](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/ci.yml/badge.svg)](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/create-tanstack-cn?label=create-tanstack-cn)](https://www.npmjs.com/package/create-tanstack-cn)
+[![npm](https://img.shields.io/npm/v/tanstack-cn?label=tanstack-cn)](https://www.npmjs.com/package/tanstack-cn)
+[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
+
 ![tanstack-cn](templates/default/public/og.png)
 
 TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn/ui `base-luma` on Base UI, Oxlint+Oxfmt. No Radix, no ESLint, no Prettier.
@@ -90,18 +95,22 @@ tanstack-cn/
 | [`tanstack-cn`](packages/tanstack-cn) | Name reservation. `bunx tanstack-cn` prints install instructions and exits. |
 | [`templates/default`](templates/default) | The starter that ships. Full scaffold-level README lives there. |
 
-## Lighthouse (desktop, 5-run p50)
+## Lighthouse (production, desktop, 5-run p50)
+
+Measured against [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app):
 
 | Metric | Score |
 | --- | --- |
-| Performance | 98 |
+| Performance | 100 |
 | Accessibility | 100 |
 | Best Practices | 100 |
 | SEO | 100 |
-| LCP | 842ms |
-| FCP | 842ms |
+| LCP | 429ms |
+| FCP | 429ms |
 | CLS | 0.000 |
 | TBT | 0ms |
+| TTFB | 46ms |
+| Speed Index | 459ms |
 
 ## Development
 
