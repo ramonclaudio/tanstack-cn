@@ -3,7 +3,6 @@ node_modules
 dist
 dist-ssr
 *.local
-count.txt
 .env
 .nitro
 .tanstack
@@ -11,4 +10,8 @@ count.txt
 .output
 .vinxi
 __unconfig*
-todos.json
+.agents
+
+# keep shared VS Code recommendations even when user's global ignores .vscode/
+!.vscode/settings.json
+!.vscode/extensions.json

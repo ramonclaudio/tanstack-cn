@@ -1,0 +1,50 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      tanstack:
+        patterns: ["@tanstack/*"]
+      base-ui:
+        patterns: ["@base-ui/*"]
+      hugeicons:
+        patterns: ["@hugeicons/*"]
+      testing:
+        patterns:
+          - "@testing-library/*"
+          - vitest
+          - jsdom
+      oxc:
+        patterns:
+          - oxlint
+          - oxfmt
+          - oxlint-tsgolint
+      react:
+        patterns:
+          - react
+          - react-dom
+          - "@types/react"
+          - "@types/react-dom"
+      tailwind:
+        patterns:
+          - tailwindcss
+          - "@tailwindcss/*"
+          - tw-animate-css
+      dev-tools:
+        patterns:
+          - vite
+          - nitro
+          - typescript
+          - "@types/node"
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    labels:
+      - github-actions
