@@ -84,10 +84,12 @@ Unlike other TanStack + shadcn starters, this one ships:
 - **Sentry**: not installed; drop in via `npm i @sentry/react` + TanStack Start SDK when needed.
 - **Convex / Better Auth / Stripe / RevenueCat**: none bundled; user's choice per app.
 
-## Lighthouse (desktop, cable, no CPU throttle, 5 runs p50)
+## Lighthouse (production, desktop, 5 runs p50)
 
-- Performance: 98
+Measured against https://tanstack-cn.vercel.app:
+
+- Performance: 100
 - Accessibility: 100
 - Best Practices: 100
 - SEO: 100
-- LCP: 842ms, FCP: 842ms, CLS: 0.000, TBT: 0ms
+- LCP: 429ms, FCP: 429ms, CLS: 0.000, TBT: 0ms, TTFB: 46ms, SI: 459ms
