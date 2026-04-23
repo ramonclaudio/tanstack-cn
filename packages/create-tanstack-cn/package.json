@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "Scaffold a new tanstack-cn project. TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn base-luma on Base UI.",
   "license": "MIT",
-  "author": "Ramon Claudio <rmncldyo@gmail.com> (https://github.com/ramonclaudio)",
+  "author": "Ramon Claudio <hello@ramonclaudio.com> (https://github.com/ramonclaudio)",
   "homepage": "https://github.com/ramonclaudio/tanstack-cn/tree/main/packages/create-tanstack-cn#readme",
   "repository": {
     "type": "git",
