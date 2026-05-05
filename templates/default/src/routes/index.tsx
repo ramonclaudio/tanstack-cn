@@ -1,19 +1,17 @@
-import {
-  ArrowRight01Icon,
-  CheckmarkCircle02Icon,
-  CodeSquareIcon,
-  CommandIcon,
-  Copy01Icon,
-  CubeIcon,
-  FlashIcon,
-  GithubIcon,
-  MagicWand01Icon,
-  PackageIcon,
-  PaintBoardIcon,
-  RocketIcon,
-  SparklesIcon,
-  StarIcon,
-} from "@hugeicons/core-free-icons"
+import ArrowRight01Icon from "@hugeicons/core-free-icons/ArrowRight01Icon"
+import CheckmarkCircle02Icon from "@hugeicons/core-free-icons/CheckmarkCircle02Icon"
+import CodeSquareIcon from "@hugeicons/core-free-icons/CodeSquareIcon"
+import CommandIcon from "@hugeicons/core-free-icons/CommandIcon"
+import Copy01Icon from "@hugeicons/core-free-icons/Copy01Icon"
+import CubeIcon from "@hugeicons/core-free-icons/CubeIcon"
+import FlashIcon from "@hugeicons/core-free-icons/FlashIcon"
+import GithubIcon from "@hugeicons/core-free-icons/GithubIcon"
+import MagicWand01Icon from "@hugeicons/core-free-icons/MagicWand01Icon"
+import PackageIcon from "@hugeicons/core-free-icons/PackageIcon"
+import PaintBoardIcon from "@hugeicons/core-free-icons/PaintBoardIcon"
+import RocketIcon from "@hugeicons/core-free-icons/RocketIcon"
+import SparklesIcon from "@hugeicons/core-free-icons/SparklesIcon"
+import StarIcon from "@hugeicons/core-free-icons/StarIcon"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"

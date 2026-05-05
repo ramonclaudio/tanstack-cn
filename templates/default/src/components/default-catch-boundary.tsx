@@ -1,4 +1,4 @@
-import { Alert02Icon } from "@hugeicons/core-free-icons"
+import Alert02Icon from "@hugeicons/core-free-icons/Alert02Icon"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Link, rootRouteId, useMatch, useRouter } from "@tanstack/react-router"
 import type { ErrorComponentProps } from "@tanstack/react-router"
