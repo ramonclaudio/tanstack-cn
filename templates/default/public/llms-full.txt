@@ -59,7 +59,7 @@ Unlike other TanStack + shadcn starters, this one ships:
 ## Scripts
 
 - `bun run dev`: Vite dev server with HMR on :3000
-- `bun run build`: `tsc --noEmit && vite build`
+- `bun run build`: `vite build && tsc --noEmit`
 - `bun run start`: Nitro SSR server from `.output/`
 - `bun run preview`: `vite preview`
 - `bun run typecheck`: `tsc --noEmit`
@@ -67,6 +67,7 @@ Unlike other TanStack + shadcn starters, this one ships:
 - `bun run fmt` / `fmt:check`: oxfmt
 - `bun run test` / `test:watch`: vitest
 - `bun run analyze`: build with rollup-plugin-visualizer (`.output/stats.html`)
+- `bun run clean`: full reset via `scripts/clean.ts` (trash artifacts, reinstall, build, fmt:check, lint, typecheck, test)
 
 ## Conventions
 

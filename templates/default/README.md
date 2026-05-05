@@ -12,22 +12,22 @@ Dev server on `http://localhost:3000`.
 
 ## Scripts
 
-| Script                       | What it does                                       |
-| ---------------------------- | -------------------------------------------------- |
-| `bun run dev`                | Vite 8 dev server with HMR on `:3000`              |
-| `bun run build`              | `tsc --noEmit && vite build`                       |
-| `bun run start`              | Nitro SSR server from `.output/`                   |
-| `bun run preview`            | `vite preview`                                     |
-| `bun run typecheck`          | `tsc --noEmit`                                     |
-| `bun run lint`               | `oxlint`                                           |
-| `bun run lint:fix`           | `oxlint --fix` (safe fixes only)                   |
-| `bun run lint:fix:suggest`   | `oxlint --fix --fix-suggestions`                   |
-| `bun run lint:fix:dangerous` | `oxlint --fix --fix-suggestions --fix-dangerously` |
-| `bun run fmt`                | `oxfmt`                                            |
-| `bun run fmt:check`          | `oxfmt --check`                                    |
-| `bun run test`               | `vitest run`                                       |
-| `bun run test:watch`         | `vitest`                                           |
-| `bun run clean`              | Trash `node_modules`, build artifacts, `.DS_Store` |
+| Script                       | What it does                                                                    |
+| ---------------------------- | ------------------------------------------------------------------------------- |
+| `bun run dev`                | Vite 8 dev server with HMR on `:3000`                                           |
+| `bun run build`              | `vite build && tsc --noEmit`                                                    |
+| `bun run start`              | Nitro SSR server from `.output/`                                                |
+| `bun run preview`            | `vite preview`                                                                  |
+| `bun run typecheck`          | `tsc --noEmit`                                                                  |
+| `bun run lint`               | `oxlint`                                                                        |
+| `bun run lint:fix`           | `oxlint --fix` (safe fixes only)                                                |
+| `bun run lint:fix:suggest`   | `oxlint --fix --fix-suggestions`                                                |
+| `bun run lint:fix:dangerous` | `oxlint --fix --fix-suggestions --fix-dangerously`                              |
+| `bun run fmt`                | `oxfmt`                                                                         |
+| `bun run fmt:check`          | `oxfmt --check`                                                                 |
+| `bun run test`               | `vitest run`                                                                    |
+| `bun run test:watch`         | `vitest`                                                                        |
+| `bun run clean`              | Full reset: trash artifacts, reinstall, build, fmt:check, lint, typecheck, test |
 
 ## Adding shadcn components
 
