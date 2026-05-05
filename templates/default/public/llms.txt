@@ -25,7 +25,7 @@
 
 ## Key files
 
-- `src/routes/__root.tsx`: root layout, head, theme, Toaster, skip link
+- `src/routes/__root.tsx`: root layout (`shellComponent`), head, theme, Toaster, header bar, `<main id="main">`
 - `src/routes/index.tsx`: demo homepage
 - `src/lib/site.ts`: SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION
 - `src/lib/seo.ts`: head meta helper (og, twitter, canonical, json-ld)

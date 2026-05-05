@@ -13,7 +13,7 @@ Unlike other TanStack + shadcn starters, this one ships:
 - Base UI (`@base-ui/react`) instead of Radix
 - Oxlint + Oxfmt instead of ESLint + Prettier
 - base-luma theme (OKLch, rounded-4xl, soft rings) instead of neutral/stone
-- Full launch baseline: OG/Twitter meta, JSON-LD @graph, PWA icons (any + maskable + monochrome), PWA screenshots, manifest with shortcuts and launch_handler, robots.txt with AI crawler opt-outs, sitemap.xml, security.txt, llms.txt, Nitro routeRules security headers, skip link, prefers-reduced-motion, theme-color per scheme, color-scheme meta, Speculation Rules API for prerender
+- Full launch baseline: OG/Twitter meta, JSON-LD @graph, PWA icons (any + maskable + monochrome), PWA screenshots, manifest with shortcuts and launch_handler, robots.txt with AI crawler opt-outs, sitemap.xml, security.txt, llms.txt, Nitro routeRules security headers, header bar with home icon and theme toggle, semantic header/main landmarks, skip link, prefers-reduced-motion, theme-color per scheme, color-scheme meta, TanStack Router defaultPreload intent
 
 ## Repository
 
@@ -43,7 +43,7 @@ Unlike other TanStack + shadcn starters, this one ships:
 
 ## Key files
 
-- `src/routes/__root.tsx`: root layout, head (meta + OG + JSON-LD + speculation rules), theme, Toaster, skip link
+- `src/routes/__root.tsx`: root layout (`shellComponent`), head (meta + OG + JSON-LD), theme, Toaster, header bar, `<main id="main">`
 - `src/routes/index.tsx`: demo homepage
 - `src/lib/site.ts`: SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_*, REPO_URL, SITE_LOCALE, SITE_OG_IMAGE_ALT
 - `src/lib/seo.ts`: emits og, twitter, canonical, description tags (absolute URLs for og:image)

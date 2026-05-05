@@ -71,8 +71,8 @@ Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix
 ### Launch baseline
 
 - Nitro `routeRules` in `vite.config.ts` emit platform-agnostic security headers on every preset (Vercel, Cloudflare, Netlify, Node, Bun): `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` (camera/mic/geo/browsing-topics/interest-cohort off), `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`, `Origin-Agent-Cluster`
-- Speculation Rules API: internal links prerender on 200ms hover (instant nav)
-- Skip link, `<main id="main">` landmark, `prefers-reduced-motion` respected globally
+- Route-level preloading via TanStack Router `defaultPreload: "intent"`: hover triggers prefetch of the route's JS chunk and loader data
+- Top header bar with home icon and theme toggle, semantic `<header>` + `<main id="main">` landmarks, working skip link, `prefers-reduced-motion` respected globally
 - `public/.well-known/security.txt` per RFC 9116
 - `public/llms.txt` + `public/llms-full.txt` for Claude, Perplexity, ChatGPT Search
 - `env.example` documenting the `VITE_SITE_URL` pattern, typed via `src/vite-env.d.ts`

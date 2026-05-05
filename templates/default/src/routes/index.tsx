@@ -93,7 +93,7 @@ function Home() {
   }
 
   return (
-    <main id="main" className="mx-auto max-w-5xl px-6 py-20 sm:py-28">
+    <div className="mx-auto max-w-5xl px-6 py-20 sm:py-28">
       <section className="flex flex-col items-start gap-6">
         <div className="flex items-center gap-3">
           <div
@@ -274,6 +274,6 @@ function Home() {
           ramonclaudio/tanstack-cn
         </a>
       </footer>
-    </main>
+    </div>
   )
 }
