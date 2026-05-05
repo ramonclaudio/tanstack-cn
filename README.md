@@ -1,7 +1,6 @@
 # tanstack-cn
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
-[![Live demo](https://img.shields.io/badge/demo-tanstack--cn.vercel.app-000?logo=vercel)](https://tanstack-cn.vercel.app)
 
 ![tanstack-cn](templates/default/public/og.png)
 
@@ -16,6 +15,8 @@ npm create tanstack-cn@latest my-app
 # or
 pnpm create tanstack-cn@latest my-app
 ```
+
+Live demo: [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app)
 
 ## License
 
