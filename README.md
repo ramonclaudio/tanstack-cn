@@ -1,15 +1,14 @@
 # tanstack-cn
 
-[![CI](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/ci.yml/badge.svg)](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/create-tanstack-cn?label=create-tanstack-cn)](https://www.npmjs.com/package/create-tanstack-cn)
-[![npm](https://img.shields.io/npm/v/tanstack-cn?label=tanstack-cn)](https://www.npmjs.com/package/tanstack-cn)
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 
 ![tanstack-cn](templates/default/public/og.png)
 
-TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn/ui `base-luma` on Base UI, Oxlint+Oxfmt. No Radix, no ESLint, no Prettier.
+Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix, ESLint, Prettier, Webpack-era Vite. I kept scaffolding the same modern setup across projects, so I pulled it into a template. `bunx create-tanstack-cn@latest`, you're in dev mode.
 
-[Live demo](https://tanstack-cn.vercel.app) · [Use this template](https://github.com/ramonclaudio/tanstack-cn/generate)
+OG/Twitter meta with JSON-LD `@graph`. Sitemap, robots.txt with AI crawler opt-outs, RFC 9116 security.txt. `llms.txt` and `llms-full.txt` for Claude and Perplexity. PWA manifest with maskable, monochrome, and wide+narrow screenshot variants. Security headers via Nitro `routeRules` on every preset, same on Vercel, Cloudflare, Netlify, Node, and Bun. Top header bar with theme toggle, semantic landmarks, working skip link, `prefers-reduced-motion` honored. Vite dev `server.warmup` pre-bundles routes and components for fast HMR. Vitest 4 with `@testing-library/react` and jsdom.
+
+TanStack Start + Vite 8 Rolldown+Oxc + Tailwind v4 + shadcn/ui `base-luma` on Base UI + React 19 + TypeScript 6 + Vitest 4. Bun runtime. Live demo at [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app).
 
 ## Scaffold
 
@@ -24,10 +23,6 @@ bunx degit ramonclaudio/tanstack-cn/templates/default my-app
 `bunx tanstack-cn` prints the same instructions and exits.
 
 The CLI copies the template, rewrites `package.json`, installs dependencies with the detected package manager (bun / pnpm / yarn / npm), and initializes a git repo with an initial commit. Flags: `-y`, `--no-install`, `--no-git`.
-
-## Why this exists
-
-Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix, ESLint, Prettier, Webpack-era Vite. This one doesn't. Latest majors across the board, SEO and security plumbing wired, nothing to strip out.
 
 ## Stack
 
