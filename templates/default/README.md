@@ -2,8 +2,6 @@
 
 Scaffolded from [`create-tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn). TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn `base-luma` on Base UI. Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. Bun runtime.
 
-## Develop
-
 ```bash
 bun run dev
 ```
@@ -12,22 +10,22 @@ Dev server on `http://localhost:3000`.
 
 ## Scripts
 
-| Script                       | What it does                                                                    |
-| ---------------------------- | ------------------------------------------------------------------------------- |
-| `bun run dev`                | Vite 8 dev server with HMR on `:3000`                                           |
-| `bun run build`              | `vite build && tsc --noEmit`                                                    |
-| `bun run start`              | Nitro SSR server from `.output/`                                                |
-| `bun run preview`            | `vite preview`                                                                  |
-| `bun run typecheck`          | `tsc --noEmit`                                                                  |
-| `bun run lint`               | `oxlint`                                                                        |
-| `bun run lint:fix`           | `oxlint --fix` (safe fixes only)                                                |
-| `bun run lint:fix:suggest`   | `oxlint --fix --fix-suggestions`                                                |
-| `bun run lint:fix:dangerous` | `oxlint --fix --fix-suggestions --fix-dangerously`                              |
-| `bun run fmt`                | `oxfmt`                                                                         |
-| `bun run fmt:check`          | `oxfmt --check`                                                                 |
-| `bun run test`               | `vitest run`                                                                    |
-| `bun run test:watch`         | `vitest`                                                                        |
-| `bun run clean`              | Full reset: trash artifacts, reinstall, build, fmt:check, lint, typecheck, test |
+```
+bun run dev                    Vite 8 dev server with HMR on :3000
+bun run build                  vite build && tsc --noEmit
+bun run start                  Nitro SSR server from .output/
+bun run preview                vite preview
+bun run typecheck              tsc --noEmit
+bun run lint                   oxlint
+bun run lint:fix               oxlint --fix (safe fixes only)
+bun run lint:fix:suggest       oxlint --fix --fix-suggestions
+bun run lint:fix:dangerous     oxlint --fix --fix-suggestions --fix-dangerously
+bun run fmt                    oxfmt
+bun run fmt:check              oxfmt --check
+bun run test                   vitest run
+bun run test:watch             vitest
+bun run clean                  trash artifacts, reinstall, build, fmt:check, lint, typecheck, test
+```
 
 ## Adding shadcn components
 
@@ -41,11 +39,11 @@ Components land in `src/components/ui/`. Import via the `@/` alias:
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 ```
 
-The `base-luma` style is pinned in `components.json`, so every new component picks it up.
+`base-luma` is pinned in `components.json`, so every new component picks it up.
 
 ## Before you publish
 
-Search and replace the placeholder URLs, or set `VITE_SITE_URL` in `.env` and let the SEO helper pick it up.
+Find placeholder URLs and replace, or set `VITE_SITE_URL` in `.env`:
 
 ```bash
 grep -r "ramonclaudio/tanstack-cn\|tanstack-cn.vercel.app" -l
@@ -95,17 +93,15 @@ Files to update:
 
 ## Deploying
 
-Nitro auto-detects the preset. Push to Vercel, Cloudflare Pages, Netlify, or run via Node or Bun. Security headers ship from `routeRules` in `vite.config.ts`, same on every preset.
+Nitro auto-detects the preset. Push to Vercel, Cloudflare Pages, or Netlify, or run via Node or Bun. Security headers ship from `routeRules` in `vite.config.ts`, same on every preset.
 
 ```bash
 bun run build
 bun run start   # Node
 ```
 
-## Upstream
-
-Full docs, stack rationale, and release notes: [`ramonclaudio/tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn).
+Full docs: [`ramonclaudio/tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn).
 
 ## License
 
-MIT
+MIT.

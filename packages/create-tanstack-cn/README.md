@@ -1,10 +1,6 @@
 # create-tanstack-cn
 
-Scaffold a new [tanstack-cn](https://github.com/ramonclaudio/tanstack-cn) project.
-
-TanStack Start on Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn `base-luma` on Base UI, Oxlint+Oxfmt. No Radix, no ESLint, no Prettier.
-
-## Usage
+Scaffold a [tanstack-cn](https://github.com/ramonclaudio/tanstack-cn) project. TanStack Start on Vite 8 (Rolldown+Oxc), Tailwind v4 + shadcn `base-luma` on Base UI, Oxlint+Oxfmt.
 
 ```bash
 bunx create-tanstack-cn@latest my-app
@@ -16,25 +12,18 @@ pnpm create tanstack-cn@latest my-app
 yarn create tanstack-cn my-app
 ```
 
-## What it does
-
-1. Copies the `templates/default` starter into your target directory
-2. Rewrites `package.json` with your project name, resets version to `0.0.0`, strips template-specific metadata
-3. Runs `<package-manager> install` to install dependencies
-4. Initializes a git repo with an initial commit
-
-The package manager is detected from `npm_config_user_agent`, so `bun create` uses Bun, `pnpm create` uses pnpm, etc. Falls back to Bun when run directly.
+The CLI copies `templates/default` into your target directory, rewrites `package.json` with your project name (resets version to `0.0.0`, strips template-specific metadata), runs `<package-manager> install`, and inits a git repo with an initial commit. Package manager is detected from `npm_config_user_agent`, falls back to Bun.
 
 ## Flags
 
-| Flag                 | Default       | Purpose                                      |
-| -------------------- | ------------- | -------------------------------------------- |
-| `<directory>`        |               | Positional project directory name            |
-| `-y`, `--yes`        | `false`       | Accept defaults, skip prompts                |
-| `--no-install`       | install runs  | Skip dependency install                      |
-| `--no-git`           | git init runs | Skip `git init` + initial commit             |
-| `-v`, `--version`    |               | Print CLI version                            |
-| `-h`, `--help`       |               | Print help                                   |
+```
+<directory>          positional, project directory name
+-y, --yes            accept defaults, skip prompts
+--no-install         skip dependency install
+--no-git             skip git init + initial commit
+-v, --version        print CLI version
+-h, --help           print help
+```
 
 ## After scaffold
 
@@ -43,12 +32,10 @@ cd my-app
 bun run dev
 ```
 
-Dev server on `http://localhost:3000`. Full docs and scripts ship in the scaffolded project's README.
+Dev server on `http://localhost:3000`. Full docs ship in the scaffolded project's README.
 
-## Upstream
-
-Repo, release notes, and the template source: [`ramonclaudio/tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn).
+Repo, release notes, and template source: [`ramonclaudio/tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn).
 
 ## License
 
-MIT
+MIT.
