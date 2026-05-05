@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { ScriptOnce } from "@tanstack/react-router"
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react"
 
