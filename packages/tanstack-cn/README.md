@@ -6,6 +6,8 @@ Thin redirect to [`create-tanstack-cn`](https://www.npmjs.com/package/create-tan
 bunx create-tanstack-cn@latest my-app
 # or
 npm create tanstack-cn@latest my-app
+# or
+pnpm create tanstack-cn@latest my-app
 ```
 
 Or clone the template directly:
