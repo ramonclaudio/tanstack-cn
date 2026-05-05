@@ -16,7 +16,7 @@
     "template:typecheck": "cd templates/default && bun install && bun run typecheck"
   },
   "devDependencies": {
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   },
   "license": "MIT",
   "author": "Ramon Claudio <hello@ramonclaudio.com> (https://github.com/ramonclaudio)",
