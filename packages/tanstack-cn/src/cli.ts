@@ -4,7 +4,9 @@ tanstack-cn
 Scaffold a project:
 
   bunx create-tanstack-cn@latest my-app
+  pnpm create tanstack-cn@latest my-app
   npm create tanstack-cn@latest my-app
+  yarn create tanstack-cn my-app
 
 Or clone the template:
 
