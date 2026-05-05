@@ -1,4 +1,4 @@
-import { FileNotFoundIcon } from "@hugeicons/core-free-icons"
+import FileNotFoundIcon from "@hugeicons/core-free-icons/FileNotFoundIcon"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Link } from "@tanstack/react-router"
 

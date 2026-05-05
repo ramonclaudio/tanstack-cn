@@ -1,15 +1,10 @@
 # tanstack-cn
 
-[![CI](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/ci.yml/badge.svg)](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/create-tanstack-cn?label=create-tanstack-cn)](https://www.npmjs.com/package/create-tanstack-cn)
-[![npm](https://img.shields.io/npm/v/tanstack-cn?label=tanstack-cn)](https://www.npmjs.com/package/tanstack-cn)
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 
+I wanted a TanStack Start + shadcn template I could scaffold and use every time I start a new project, so I made this. On the latest stack with dark mode, OG meta, JSON-LD, security headers, PWA manifest, llms.txt, and all the launch boilerplate wired in. Vite 8 (Rolldown + Oxc) + Tailwind v4 + shadcn/ui `base-luma` on Base UI + React 19 + TypeScript 6 + Vitest 4 + Bun. Lighthouse 100/100/100/100. Live demo at [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app). On npm as [`create-tanstack-cn`](https://www.npmjs.com/package/create-tanstack-cn) and [`tanstack-cn`](https://www.npmjs.com/package/tanstack-cn).
+
 ![tanstack-cn](templates/default/public/og.png)
-
-TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn/ui `base-luma` on Base UI, Oxlint+Oxfmt. No Radix, no ESLint, no Prettier.
-
-[Live demo](https://tanstack-cn.vercel.app) · [Use this template](https://github.com/ramonclaudio/tanstack-cn/generate)
 
 ## Scaffold
 
@@ -25,10 +20,6 @@ bunx degit ramonclaudio/tanstack-cn/templates/default my-app
 
 The CLI copies the template, rewrites `package.json`, installs dependencies with the detected package manager (bun / pnpm / yarn / npm), and initializes a git repo with an initial commit. Flags: `-y`, `--no-install`, `--no-git`.
 
-## Why this exists
-
-Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix, ESLint, Prettier, Webpack-era Vite. This one doesn't. Latest majors across the board, SEO and security plumbing wired, nothing to strip out.
-
 ## Stack
 
 - TanStack Start + TanStack Router with file-based routing
@@ -39,7 +30,7 @@ Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix
 - Tailwind CSS v4 via `@tailwindcss/vite`
 - shadcn/ui `base-luma` theme on `@base-ui/react` (not Radix)
 - HugeIcons + Geist Variable font
-- Oxlint 1.59 with 232 rules across 8 native plugins, type-aware via `oxlint-tsgolint`
+- Oxlint 1.63 with 240 rules across 8 native plugins, type-aware via `oxlint-tsgolint`
 - Oxfmt with native import sorting, Tailwind class sorting, package.json field sorting
 - Vitest 4 + `@testing-library/react` + jsdom
 - Sonner toasts, theme provider, web vitals reporter
@@ -71,8 +62,8 @@ Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix
 ### Launch baseline
 
 - Nitro `routeRules` in `vite.config.ts` emit platform-agnostic security headers on every preset (Vercel, Cloudflare, Netlify, Node, Bun): `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` (camera/mic/geo/browsing-topics/interest-cohort off), `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`, `Origin-Agent-Cluster`
-- Speculation Rules API: internal links prerender on 200ms hover (instant nav)
-- Skip link, `<main id="main">` landmark, `prefers-reduced-motion` respected globally
+- Route-level preloading via TanStack Router `defaultPreload: "intent"`: hover triggers prefetch of the route's JS chunk and loader data
+- Top header bar with home icon and theme toggle, semantic `<header>` + `<main id="main">` landmarks, working skip link, `prefers-reduced-motion` respected globally
 - `public/.well-known/security.txt` per RFC 9116
 - `public/llms.txt` + `public/llms-full.txt` for Claude, Perplexity, ChatGPT Search
 - `env.example` documenting the `VITE_SITE_URL` pattern, typed via `src/vite-env.d.ts`

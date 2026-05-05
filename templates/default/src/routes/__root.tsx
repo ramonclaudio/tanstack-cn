@@ -1,10 +1,13 @@
-import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router"
+import Home01Icon from "@hugeicons/core-free-icons/Home01Icon"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { HeadContent, Link, Scripts, createRootRoute } from "@tanstack/react-router"
 import { lazy, Suspense } from "react"
 
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary"
 import { NotFound } from "@/components/not-found"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { buttonVariants } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
 import { WebVitals } from "@/components/web-vitals"
 import { seo } from "@/lib/seo"
@@ -18,6 +21,7 @@ import {
   SITE_TITLE,
   SITE_URL,
 } from "@/lib/site"
+import { cn } from "@/lib/utils"
 
 import appCss from "../styles.css?url"
 
@@ -58,15 +62,6 @@ const jsonLd = {
   ],
 }
 
-const speculationRules = {
-  prerender: [
-    {
-      where: { href_matches: "/*" },
-      eagerness: "moderate",
-    },
-  ],
-}
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -103,18 +98,14 @@ export const Route = createRootRoute({
         type: "application/ld+json",
         children: JSON.stringify(jsonLd),
       },
-      {
-        type: "speculationrules",
-        children: JSON.stringify(speculationRules),
-      },
     ],
   }),
   errorComponent: DefaultCatchBoundary,
   notFoundComponent: NotFound,
-  component: RootComponent,
+  shellComponent: RootDocument,
 })
 
-function RootComponent() {
+function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -131,10 +122,22 @@ function RootComponent() {
         </a>
         <ThemeProvider>
           <WebVitals />
-          <div className="fixed top-4 right-4 z-40">
-            <ThemeToggle />
-          </div>
-          <Outlet />
+          <header className="fixed inset-x-0 top-4 z-40">
+            <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
+              <Link
+                to="/"
+                aria-label="Home"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "icon" }),
+                  "[&_svg]:size-[1.2rem]",
+                )}
+              >
+                <HugeiconsIcon icon={Home01Icon} strokeWidth={2} />
+              </Link>
+              <ThemeToggle />
+            </div>
+          </header>
+          <main id="main">{children}</main>
           <Toaster />
           {Devtools ? (
             <Suspense fallback={null}>

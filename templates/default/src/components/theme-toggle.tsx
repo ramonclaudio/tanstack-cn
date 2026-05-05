@@ -1,4 +1,5 @@
-import { Moon02Icon, Sun03Icon } from "@hugeicons/core-free-icons"
+import Moon02Icon from "@hugeicons/core-free-icons/Moon02Icon"
+import Sun03Icon from "@hugeicons/core-free-icons/Sun03Icon"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { useTheme } from "@/components/theme-provider"

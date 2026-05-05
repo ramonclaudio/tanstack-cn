@@ -31,7 +31,7 @@ TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + 
 
 | File                                | Purpose                                                                                                      |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `src/routes/__root.tsx`             | Root layout, head (meta + OG + JSON-LD + speculation rules), theme, Toaster, skip link                       |
+| `src/routes/__root.tsx`             | Root layout (`shellComponent`), head (meta + OG + JSON-LD), theme, Toaster, header bar, `<main id="main">` |
 | `src/routes/index.tsx`              | Showcase homepage                                                                                            |
 | `src/lib/site.ts`                   | Single source of truth for `SITE_URL`, `SITE_NAME`, `SITE_TITLE`, `SITE_DESCRIPTION`, `AUTHOR_*`, `REPO_URL` |
 | `src/lib/seo.ts`                    | Head meta helper (og, twitter, canonical, image). Absolute URLs for social scrapers.                         |

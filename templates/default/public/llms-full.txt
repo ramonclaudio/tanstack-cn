@@ -13,7 +13,7 @@ Unlike other TanStack + shadcn starters, this one ships:
 - Base UI (`@base-ui/react`) instead of Radix
 - Oxlint + Oxfmt instead of ESLint + Prettier
 - base-luma theme (OKLch, rounded-4xl, soft rings) instead of neutral/stone
-- Full launch baseline: OG/Twitter meta, JSON-LD @graph, PWA icons (any + maskable + monochrome), PWA screenshots, manifest with shortcuts and launch_handler, robots.txt with AI crawler opt-outs, sitemap.xml, security.txt, llms.txt, Nitro routeRules security headers, skip link, prefers-reduced-motion, theme-color per scheme, color-scheme meta, Speculation Rules API for prerender
+- Full launch baseline: OG/Twitter meta, JSON-LD @graph, PWA icons (any + maskable + monochrome), PWA screenshots, manifest with shortcuts and launch_handler, robots.txt with AI crawler opt-outs, sitemap.xml, security.txt, llms.txt, Nitro routeRules security headers, header bar with home icon and theme toggle, semantic header/main landmarks, skip link, prefers-reduced-motion, theme-color per scheme, color-scheme meta, TanStack Router defaultPreload intent
 
 ## Repository
 
@@ -34,7 +34,7 @@ Unlike other TanStack + shadcn starters, this one ships:
 - **Base UI**: `@base-ui/react` primitives (not Radix)
 - **HugeIcons**: `@hugeicons/core-free-icons` + `@hugeicons/react`
 - **Geist Variable**: via `@fontsource-variable/geist`
-- **Oxlint 1.59**: 232 rules, 8 plugins, type-aware via `oxlint-tsgolint`
+- **Oxlint 1.63**: 240 rules, 8 plugins, type-aware via `oxlint-tsgolint`
 - **Oxfmt**: native import + Tailwind + package.json field sorting
 - **Vitest 4**: jsdom environment + `@testing-library/react`
 - **Sonner**: toast primitive
@@ -43,7 +43,7 @@ Unlike other TanStack + shadcn starters, this one ships:
 
 ## Key files
 
-- `src/routes/__root.tsx`: root layout, head (meta + OG + JSON-LD + speculation rules), theme, Toaster, skip link
+- `src/routes/__root.tsx`: root layout (`shellComponent`), head (meta + OG + JSON-LD), theme, Toaster, header bar, `<main id="main">`
 - `src/routes/index.tsx`: demo homepage
 - `src/lib/site.ts`: SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_*, REPO_URL, SITE_LOCALE, SITE_OG_IMAGE_ALT
 - `src/lib/seo.ts`: emits og, twitter, canonical, description tags (absolute URLs for og:image)
@@ -59,7 +59,7 @@ Unlike other TanStack + shadcn starters, this one ships:
 ## Scripts
 
 - `bun run dev`: Vite dev server with HMR on :3000
-- `bun run build`: `tsc --noEmit && vite build`
+- `bun run build`: `vite build && tsc --noEmit`
 - `bun run start`: Nitro SSR server from `.output/`
 - `bun run preview`: `vite preview`
 - `bun run typecheck`: `tsc --noEmit`
@@ -67,6 +67,7 @@ Unlike other TanStack + shadcn starters, this one ships:
 - `bun run fmt` / `fmt:check`: oxfmt
 - `bun run test` / `test:watch`: vitest
 - `bun run analyze`: build with rollup-plugin-visualizer (`.output/stats.html`)
+- `bun run clean`: full reset via `scripts/clean.ts` (trash artifacts, reinstall, build, fmt:check, lint, typecheck, test)
 
 ## Conventions
 

@@ -11,8 +11,7 @@ const securityHeaders: Record<string, string> = {
   "x-content-type-options": "nosniff",
   "x-frame-options": "DENY",
   "referrer-policy": "strict-origin-when-cross-origin",
-  "permissions-policy":
-    "camera=(), microphone=(), geolocation=(), browsing-topics=(), interest-cohort=()",
+  "permissions-policy": "camera=(), microphone=(), geolocation=()",
   "cross-origin-opener-policy": "same-origin",
   "cross-origin-resource-policy": "same-origin",
   "origin-agent-cluster": "?1",
@@ -21,6 +20,15 @@ const securityHeaders: Record<string, string> = {
 export default defineConfig({
   server: {
     port: 3000,
+    warmup: {
+      clientFiles: [
+        "./src/router.tsx",
+        "./src/routes/**/*.{ts,tsx}",
+        "./src/components/**/*.tsx",
+        "./src/lib/*.ts",
+        "./src/styles.css",
+      ],
+    },
   },
   resolve: {
     tsconfigPaths: true,

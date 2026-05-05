@@ -13,6 +13,8 @@ __unconfig*
 .agents
 
 # keep shared VS Code recommendations even when user's global ignores .vscode/
+!.vscode/
+.vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
 .vercel

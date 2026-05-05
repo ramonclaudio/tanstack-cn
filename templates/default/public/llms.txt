@@ -11,7 +11,7 @@
 - Tailwind CSS v4 via @tailwindcss/vite
 - shadcn/ui base-luma theme on @base-ui/react (not Radix)
 - HugeIcons + Geist Variable font
-- Oxlint 1.59 (232 rules, 8 plugins, type-aware via oxlint-tsgolint)
+- Oxlint 1.63 (240 rules, 8 plugins, type-aware via oxlint-tsgolint)
 - Oxfmt (native import + Tailwind + package.json sorting)
 - Vitest 4 + @testing-library/react + jsdom
 - Sonner toasts, theme provider with no-flash script, web vitals reporter
@@ -25,7 +25,7 @@
 
 ## Key files
 
-- `src/routes/__root.tsx`: root layout, head, theme, Toaster, skip link
+- `src/routes/__root.tsx`: root layout (`shellComponent`), head, theme, Toaster, header bar, `<main id="main">`
 - `src/routes/index.tsx`: demo homepage
 - `src/lib/site.ts`: SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION
 - `src/lib/seo.ts`: head meta helper (og, twitter, canonical, json-ld)
