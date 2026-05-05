@@ -155,7 +155,7 @@ function detectPackageManager(): PM {
   if (ua.startsWith("pnpm")) return "pnpm"
   if (ua.startsWith("yarn")) return "yarn"
   if (ua.startsWith("npm")) return "npm"
-  return "bun"
+  return "npm"
 }
 
 function intro(): void {
