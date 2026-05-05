@@ -34,7 +34,7 @@ Unlike other TanStack + shadcn starters, this one ships:
 - **Base UI**: `@base-ui/react` primitives (not Radix)
 - **HugeIcons**: `@hugeicons/core-free-icons` + `@hugeicons/react`
 - **Geist Variable**: via `@fontsource-variable/geist`
-- **Oxlint 1.59**: 232 rules, 8 plugins, type-aware via `oxlint-tsgolint`
+- **Oxlint 1.63**: 240 rules, 8 plugins, type-aware via `oxlint-tsgolint`
 - **Oxfmt**: native import + Tailwind + package.json field sorting
 - **Vitest 4**: jsdom environment + `@testing-library/react`
 - **Sonner**: toast primitive

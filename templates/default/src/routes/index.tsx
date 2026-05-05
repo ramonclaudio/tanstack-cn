@@ -64,7 +64,7 @@ const stack = [
   {
     icon: PackageIcon,
     name: "Vitest 4",
-    detail: "jsdom + @testing-library/react. Oxlint 1.59.",
+    detail: "jsdom + @testing-library/react. Oxlint 1.63.",
   },
 ]
 

@@ -39,7 +39,7 @@ Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix
 - Tailwind CSS v4 via `@tailwindcss/vite`
 - shadcn/ui `base-luma` theme on `@base-ui/react` (not Radix)
 - HugeIcons + Geist Variable font
-- Oxlint 1.59 with 232 rules across 8 native plugins, type-aware via `oxlint-tsgolint`
+- Oxlint 1.63 with 240 rules across 8 native plugins, type-aware via `oxlint-tsgolint`
 - Oxfmt with native import sorting, Tailwind class sorting, package.json field sorting
 - Vitest 4 + `@testing-library/react` + jsdom
 - Sonner toasts, theme provider, web vitals reporter
