@@ -32,7 +32,7 @@ import { Separator } from "@/components/ui/separator"
 
 export const Route = createFileRoute("/")({ component: Home })
 
-const INSTALL_CMD = "bunx degit ramonclaudio/tanstack-cn my-app"
+const INSTALL_CMD = "bunx create-tanstack-cn@latest my-app"
 const REPO_URL = "https://github.com/ramonclaudio/tanstack-cn"
 
 const stack = [
@@ -44,7 +44,7 @@ const stack = [
   {
     icon: FlashIcon,
     name: "Vite 8 + Oxc",
-    detail: "Rolldown bundler. Native toolchain. No ESLint, no Prettier.",
+    detail: "Rolldown bundler. Native toolchain.",
   },
   {
     icon: PaintBoardIcon,
@@ -110,7 +110,7 @@ function Home() {
         <h1 className="text-4xl font-medium tracking-tight sm:text-6xl">tanstack-cn</h1>
         <p className="max-w-2xl text-base leading-relaxed text-pretty text-muted-foreground sm:text-lg">
           TanStack Start on Vite 8 Rolldown+Oxc. Tailwind v4 + shadcn/ui base-luma on Base UI.
-          Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. No Radix. No ESLint. No Prettier.
+          Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4.
         </p>
 
         <div className="flex flex-wrap items-center gap-3">
