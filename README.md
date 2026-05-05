@@ -11,9 +11,9 @@ Home for the [`create-tanstack-cn`](https://www.npmjs.com/package/create-tanstac
 ```bash
 bunx create-tanstack-cn@latest my-app
 # or
-npm create tanstack-cn@latest my-app
-# or
 pnpm create tanstack-cn@latest my-app
+# or
+npm create tanstack-cn@latest my-app
 # or
 yarn create tanstack-cn my-app
 ```

@@ -5,9 +5,9 @@ Scaffold a [tanstack-cn](https://github.com/ramonclaudio/tanstack-cn) project. T
 ```bash
 bunx create-tanstack-cn@latest my-app
 # or
-npm create tanstack-cn@latest my-app
-# or
 pnpm create tanstack-cn@latest my-app
+# or
+npm create tanstack-cn@latest my-app
 # or
 yarn create tanstack-cn my-app
 ```
