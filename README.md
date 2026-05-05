@@ -2,13 +2,15 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 
+I'd open a TanStack Start + shadcn template expecting modern and get a Prettier config from 2022. Same routine every time: strip Radix and install Base UI, pull ESLint and Prettier and install Oxlint and Oxfmt, bump everything to its current major. After the fourth or fifth round I gave up and pulled my baseline into a template.
+
+So I built tanstack-cn, a TanStack Start template on Vite 8 with Rolldown + Oxc, Tailwind v4, shadcn/ui's `base-luma` theme on Base UI primitives. Oxlint and Oxfmt from the Oxc toolchain instead of ESLint and Prettier. React 19, TypeScript 6, Vitest 4. Bun runtime. `bunx create-tanstack-cn@latest my-app`, install runs, git initializes. You're in dev mode.
+
+Full launch baseline ships in the box. OG/Twitter meta with JSON-LD `@graph`. Sitemap, robots.txt with AI crawler opt-outs, RFC 9116 security.txt. `llms.txt` and `llms-full.txt` for Claude and Perplexity. PWA manifest with maskable, monochrome, and wide+narrow screenshot variants. Security headers via Nitro `routeRules` on every preset, same on Vercel, Cloudflare, Netlify, Node, and Bun. Top header bar with theme toggle, semantic landmarks, working skip link, `prefers-reduced-motion` honored. Vite dev `server.warmup` pre-bundles routes and components for fast HMR. Vitest with `@testing-library/react` and jsdom. CI runs typecheck, lint, fmt:check, test, and build on every push.
+
+Lighthouse 100/100/100/100 in production. 429ms LCP, zero CLS, zero TBT, 46ms TTFB. Live demo at [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app).
+
 ![tanstack-cn](templates/default/public/og.png)
-
-Every TanStack Start + shadcn starter on GitHub ships last year's choices: Radix, ESLint, Prettier, Webpack-era Vite. I kept scaffolding the same modern setup across projects, so I pulled it into a template. `bunx create-tanstack-cn@latest`, you're in dev mode.
-
-OG/Twitter meta with JSON-LD `@graph`. Sitemap, robots.txt with AI crawler opt-outs, RFC 9116 security.txt. `llms.txt` and `llms-full.txt` for Claude and Perplexity. PWA manifest with maskable, monochrome, and wide+narrow screenshot variants. Security headers via Nitro `routeRules` on every preset, same on Vercel, Cloudflare, Netlify, Node, and Bun. Top header bar with theme toggle, semantic landmarks, working skip link, `prefers-reduced-motion` honored. Vite dev `server.warmup` pre-bundles routes and components for fast HMR. Vitest 4 with `@testing-library/react` and jsdom.
-
-TanStack Start + Vite 8 Rolldown+Oxc + Tailwind v4 + shadcn/ui `base-luma` on Base UI + React 19 + TypeScript 6 + Vitest 4. Bun runtime. Live demo at [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app).
 
 ## Scaffold
 
