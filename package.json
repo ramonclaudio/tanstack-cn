@@ -5,15 +5,15 @@
   "type": "module",
   "workspaces": ["packages/*"],
   "scripts": {
-    "build": "bun --filter '*' build",
-    "typecheck": "bun --filter '*' typecheck",
-    "test": "bun --filter '*' test",
-    "template:dev": "cd templates/default && bun install && bun run dev",
-    "template:build": "cd templates/default && bun install && bun run build",
-    "template:test": "cd templates/default && bun install && bun run test",
-    "template:lint": "cd templates/default && bun install && bun run lint",
-    "template:fmt:check": "cd templates/default && bun install && bun run fmt:check",
-    "template:typecheck": "cd templates/default && bun install && bun run typecheck"
+    "build": "node scripts/dev.mjs ws build",
+    "typecheck": "node scripts/dev.mjs ws typecheck",
+    "test": "node scripts/dev.mjs ws test",
+    "template:dev": "node scripts/dev.mjs template dev",
+    "template:build": "node scripts/dev.mjs template build",
+    "template:test": "node scripts/dev.mjs template test",
+    "template:lint": "node scripts/dev.mjs template lint",
+    "template:fmt:check": "node scripts/dev.mjs template fmt:check",
+    "template:typecheck": "node scripts/dev.mjs template typecheck"
   },
   "devDependencies": {
     "typescript": "^6.0.3"
