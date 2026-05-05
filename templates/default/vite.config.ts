@@ -21,6 +21,15 @@ const securityHeaders: Record<string, string> = {
 export default defineConfig({
   server: {
     port: 3000,
+    warmup: {
+      clientFiles: [
+        "./src/router.tsx",
+        "./src/routes/**/*.{ts,tsx}",
+        "./src/components/**/*.tsx",
+        "./src/lib/*.ts",
+        "./src/styles.css",
+      ],
+    },
   },
   resolve: {
     tsconfigPaths: true,
