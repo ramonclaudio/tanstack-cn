@@ -8,6 +8,8 @@ bunx create-tanstack-cn@latest my-app
 npm create tanstack-cn@latest my-app
 # or
 pnpm create tanstack-cn@latest my-app
+# or
+yarn create tanstack-cn my-app
 ```
 
 Or clone the template directly:
