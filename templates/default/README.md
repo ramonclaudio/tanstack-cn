@@ -33,7 +33,7 @@ Invoke with your package manager: `bun run <name>`, `pnpm <name>`, `npm run <nam
 
 ```bash
 bunx shadcn@latest add sheet dialog tabs
-# or: pnpm dlx, yarn dlx, npx
+# or: pnpm dlx, npx, yarn dlx
 ```
 
 Components land in `src/components/ui/`. Import via the `@/` alias:
