@@ -4,7 +4,7 @@
 
 I wanted a TanStack Start + shadcn template I could scaffold and use every time I start a new project. So I made this.
 
-TanStack Start on Vite 8 (Rolldown + Oxc) + Tailwind v4 + shadcn/ui `base-luma` on Base UI + React 19 + TypeScript 6 + Vitest 4. Bun runtime. Lighthouse 100/100/100/100 on the live demo at [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app).
+On the latest stack with dark mode, OG meta, JSON-LD, security headers, PWA manifest, llms.txt, and all the launch boilerplate wired in. Vite 8 (Rolldown + Oxc) + Tailwind v4 + shadcn/ui `base-luma` on Base UI + React 19 + TypeScript 6 + Vitest 4 + Bun. Lighthouse 100/100/100/100 on [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app).
 
 ![tanstack-cn](templates/default/public/og.png)
 
