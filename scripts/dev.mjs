@@ -13,7 +13,7 @@
  * detected PM, then run <script>.
  */
 
-import { spawn } from "node:child_process"
+import { spawn, spawnSync } from "node:child_process"
 import { existsSync } from "node:fs"
 
 function detectPM() {
@@ -43,6 +43,11 @@ if (!mode || !target) {
   process.exit(2)
 }
 
+function yarnIsClassic() {
+  const v = spawnSync("yarn", ["--version"], { encoding: "utf8" }).stdout?.trim() ?? ""
+  return v.startsWith("1.")
+}
+
 if (mode === "ws") {
   const args =
     pm === "bun"
@@ -50,7 +55,9 @@ if (mode === "ws") {
       : pm === "pnpm"
         ? ["-r", "run", target]
         : pm === "yarn"
-          ? ["workspaces", "foreach", "--all", "run", target]
+          ? yarnIsClassic()
+            ? ["workspaces", "run", target]
+            : ["workspaces", "foreach", "--all", "run", target]
           : ["run", "--workspaces", target]
   process.exit(await exec(pm, args))
 }
