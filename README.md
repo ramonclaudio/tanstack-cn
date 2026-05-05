@@ -2,9 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 
-I wanted a TanStack Start + shadcn template I could scaffold and use every time I start a new project. So I made this.
-
-On the latest stack with dark mode, OG meta, JSON-LD, security headers, PWA manifest, llms.txt, and all the launch boilerplate wired in. Vite 8 (Rolldown + Oxc) + Tailwind v4 + shadcn/ui `base-luma` on Base UI + React 19 + TypeScript 6 + Vitest 4 + Bun. Lighthouse 100/100/100/100 on [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app).
+I wanted a TanStack Start + shadcn template I could scaffold and use every time I start a new project, so I made this. On the latest stack with dark mode, OG meta, JSON-LD, security headers, PWA manifest, llms.txt, and all the launch boilerplate wired in. Vite 8 (Rolldown + Oxc) + Tailwind v4 + shadcn/ui `base-luma` on Base UI + React 19 + TypeScript 6 + Vitest 4 + Bun. Lighthouse 100/100/100/100. Live demo at [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app). On npm as [`create-tanstack-cn`](https://www.npmjs.com/package/create-tanstack-cn) and [`tanstack-cn`](https://www.npmjs.com/package/tanstack-cn).
 
 ![tanstack-cn](templates/default/public/og.png)
 
