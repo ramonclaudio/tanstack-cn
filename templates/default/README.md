@@ -1,9 +1,9 @@
 # tanstack-cn app
 
-Scaffolded from [`create-tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn). TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn `base-luma` on Base UI. Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. Bun runtime.
+Scaffolded from [`create-tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn). TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn `base-luma` on Base UI. Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. Works with bun, pnpm, npm, or yarn.
 
 ```bash
-bun run dev
+bun run dev    # or pnpm dev, npm run dev, yarn dev
 ```
 
 Dev server on `http://localhost:3000`.
@@ -11,26 +11,29 @@ Dev server on `http://localhost:3000`.
 ## Scripts
 
 ```
-bun run dev                    Vite 8 dev server with HMR on :3000
-bun run build                  vite build && tsc --noEmit
-bun run start                  Nitro SSR server from .output/
-bun run preview                vite preview
-bun run typecheck              tsc --noEmit
-bun run lint                   oxlint
-bun run lint:fix               oxlint --fix (safe fixes only)
-bun run lint:fix:suggest       oxlint --fix --fix-suggestions
-bun run lint:fix:dangerous     oxlint --fix --fix-suggestions --fix-dangerously
-bun run fmt                    oxfmt
-bun run fmt:check              oxfmt --check
-bun run test                   vitest run
-bun run test:watch             vitest
-bun run clean                  trash artifacts, reinstall, build, fmt:check, lint, typecheck, test
+dev                            Vite 8 dev server with HMR on :3000
+build                          vite build && tsc --noEmit
+start                          Nitro SSR server from .output/
+preview                        vite preview
+typecheck                      tsc --noEmit
+lint                           oxlint
+lint:fix                       oxlint --fix (safe fixes only)
+lint:fix:suggest               oxlint --fix --fix-suggestions
+lint:fix:dangerous             oxlint --fix --fix-suggestions --fix-dangerously
+fmt                            oxfmt
+fmt:check                      oxfmt --check
+test                           vitest run
+test:watch                     vitest
+clean                          trash artifacts, reinstall, build, fmt:check, lint, typecheck, test
 ```
+
+Invoke with your package manager: `bun run <name>`, `pnpm <name>`, `npm run <name>`, or `yarn <name>`. The `clean` script auto-detects which one and reinstalls accordingly.
 
 ## Adding shadcn components
 
 ```bash
 bunx shadcn@latest add sheet dialog tabs
+# or: pnpm dlx, yarn dlx, npx
 ```
 
 Components land in `src/components/ui/`. Import via the `@/` alias:
@@ -65,7 +68,8 @@ Files to update:
 ├── .vscode/
 │   └── settings.json                # routeTree.gen.ts readonly + excluded from search/watcher
 ├── scripts/
-│   └── clean.ts                     # full reset + verify chain (`bun run clean`)
+│   ├── _run.mjs                     # runtime-agnostic launcher (bun -> tsx -> npx tsx)
+│   └── clean.ts                     # PM-agnostic full reset + verify chain
 └── src/
     ├── components/
     │   ├── default-catch-boundary.tsx   # router error boundary
