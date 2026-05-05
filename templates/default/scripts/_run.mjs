@@ -62,6 +62,7 @@ function pickRuntime() {
   console.error("  install bun:  curl -fsSL https://bun.sh/install | bash")
   console.error("  or run:       npm install   (tanstack-cn ships tsx as a devDep)")
   process.exit(1)
+  return null
 }
 
 const runtime = pickRuntime()

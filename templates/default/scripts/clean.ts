@@ -32,11 +32,11 @@ function detectPackageManager(): PM {
 }
 
 function spawn(argv: ReadonlyArray<string>, opts: { quiet?: boolean } = {}): Promise<number> {
-  return new Promise((resolve) => {
-    const proc = nodeSpawn(argv[0]!, argv.slice(1), {
+  return new Promise((res) => {
+    const proc = nodeSpawn(argv[0], argv.slice(1), {
       stdio: opts.quiet ? "ignore" : "inherit",
     })
-    proc.on("close", (code) => resolve(code ?? 1))
+    proc.on("close", (code) => res(code ?? 1))
   })
 }
 
