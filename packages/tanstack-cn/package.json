@@ -1,6 +1,6 @@
 {
   "name": "tanstack-cn",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "tanstack-cn starter. Use create-tanstack-cn to scaffold. TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn base-luma on Base UI.",
   "license": "MIT",
   "author": "Ramon Claudio <hello@ramonclaudio.com> (https://github.com/ramonclaudio)",
@@ -41,7 +41,9 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=20.10"
   },
