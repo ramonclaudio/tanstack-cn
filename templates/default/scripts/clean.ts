@@ -9,11 +9,16 @@
  * Order is fix-then-verify: oxfmt, oxlint --fix, vite build, tsc --noEmit,
  * vitest run. Verifications run on the cleaned source.
  *
+ * Output is quiet by default: each step prints just `→ name` then `✓ time`.
+ * On failure, the captured stdout/stderr of the failing step is dumped so
+ * the cause is visible. Set `VERBOSE=1` to stream every tool's output live.
+ *
  * PM-agnostic: detects bun/pnpm/yarn/npm via `npm_config_user_agent` or lockfile.
  * Uses macOS `trash` so anything wiped is recoverable.
  *
  * Usage:
- *   <pm> run clean       # full wipe + reinstall + fix + verify
+ *   <pm> run clean              # quiet (default)
+ *   VERBOSE=1 <pm> run clean    # stream every tool's output
  */
 
 import { spawn as nodeSpawn } from "node:child_process"
@@ -22,6 +27,8 @@ import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 
 type PM = "bun" | "pnpm" | "yarn" | "npm"
+
+const VERBOSE = process.env.VERBOSE === "1" || process.env.VERBOSE === "true"
 
 function detectPackageManager(): PM {
   const ua = (process.env.npm_config_user_agent ?? "").toLowerCase()
@@ -35,12 +42,42 @@ function detectPackageManager(): PM {
   return "npm"
 }
 
-function spawn(argv: ReadonlyArray<string>, opts: { quiet?: boolean } = {}): Promise<number> {
+/**
+ * Run a command. Captures stdout/stderr by default, returns both with the
+ * exit code. In VERBOSE mode, streams live to the parent stdio (captured
+ * strings come back empty).
+ */
+function exec(
+  argv: ReadonlyArray<string>,
+): Promise<{ code: number; stdout: string; stderr: string }> {
   return new Promise((res) => {
+    if (VERBOSE) {
+      const proc = nodeSpawn(argv[0], argv.slice(1), { stdio: "inherit" })
+      let settled = false
+      const finishVerbose = (code: number) => {
+        if (settled) return
+        settled = true
+        res({ code, stdout: "", stderr: "" })
+      }
+      proc.once("exit", (code, signal) => finishVerbose(code ?? (signal ? 1 : 0)))
+      proc.once("error", () => finishVerbose(1))
+      return
+    }
     const proc = nodeSpawn(argv[0], argv.slice(1), {
-      stdio: opts.quiet ? "ignore" : "inherit",
+      stdio: ["ignore", "pipe", "pipe"],
     })
-    proc.on("close", (code) => res(code ?? 1))
+    let stdout = ""
+    let stderr = ""
+    proc.stdout?.on("data", (c) => (stdout += String(c)))
+    proc.stderr?.on("data", (c) => (stderr += String(c)))
+    let settled = false
+    const finish = (code: number) => {
+      if (settled) return
+      settled = true
+      res({ code, stdout, stderr })
+    }
+    proc.once("exit", (code, signal) => finish(code ?? (signal ? 1 : 0)))
+    proc.once("error", () => finish(1))
   })
 }
 
@@ -79,13 +116,22 @@ async function step<T>(name: string, fn: () => Promise<T>): Promise<T> {
 
 async function trashIfExists(path: string): Promise<void> {
   if (!existsSync(path)) return
-  const code = await spawn(["trash", path], { quiet: true })
+  const { code } = await exec(["trash", path])
   if (code !== 0) throw new Error(`trash ${path} exited ${code}`)
 }
 
+/**
+ * Run a command. On non-zero exit, dump the captured output (so the user
+ * sees what failed) and throw. In VERBOSE mode there's nothing to dump
+ * because output streamed live.
+ */
 async function run(cmd: ReadonlyArray<string>): Promise<void> {
-  const code = await spawn(cmd)
-  if (code !== 0) throw new Error(`${cmd.join(" ")} exited ${code}`)
+  const { code, stdout, stderr } = await exec(cmd)
+  if (code !== 0) {
+    if (stdout.trim()) process.stderr.write(stdout)
+    if (stderr.trim()) process.stderr.write(stderr)
+    throw new Error(`${cmd.join(" ")} exited ${code}`)
+  }
 }
 
 void (async () => {
@@ -96,28 +142,25 @@ void (async () => {
     await step("trash artifacts", async () => {
       for (const p of PATHS) await trashIfExists(p)
       // .DS_Store cleanup, swallow errors (find -exec exits non-zero on no matches)
-      await spawn(
-        [
-          "find",
-          ".",
-          "-name",
-          ".DS_Store",
-          "-not",
-          "-path",
-          "./node_modules/*",
-          "-exec",
-          "trash",
-          "{}",
-          "+",
-        ],
-        { quiet: true },
-      )
+      await exec([
+        "find",
+        ".",
+        "-name",
+        ".DS_Store",
+        "-not",
+        "-path",
+        "./node_modules/*",
+        "-exec",
+        "trash",
+        "{}",
+        "+",
+      ])
     })
 
     await step(`${pm} install`, () => run([pm, "install"]))
     await step("oxfmt", () => run(["oxfmt"]))
     await step("oxlint --fix", () => run(["oxlint", "--fix"]))
-    await step("vite build", () => run(["vite", "build"]))
+    await step("vite build", () => run(["vite", "build", "--logLevel", "warn"]))
     await step("tsc --noEmit", () => run(["tsc", "--noEmit"]))
     await step("vitest run", () => run(["vitest", "run"]))
 
