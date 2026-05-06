@@ -32,7 +32,7 @@ import { Separator } from "@/components/ui/separator"
 
 export const Route = createFileRoute("/")({ component: Home })
 
-const INSTALL_CMD = "bunx create-tanstack-cn@latest my-app"
+const INSTALL_CMD = "npm create tanstack-cn@latest my-app"
 const REPO_URL = "https://github.com/ramonclaudio/tanstack-cn"
 
 const stack = [
@@ -209,7 +209,7 @@ function Home() {
             </code>
             . Add more with{" "}
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              bunx shadcn@latest add
+              npx shadcn@latest add
             </code>
             .
           </p>

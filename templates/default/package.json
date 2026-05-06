@@ -5,7 +5,6 @@
   "description": "TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn base-luma on Base UI, Oxlint+Oxfmt. No Radix, no ESLint, no Prettier.",
   "keywords": [
     "base-ui",
-    "bun",
     "oxc",
     "oxfmt",
     "oxlint",
@@ -45,7 +44,7 @@
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "analyze": "ANALYZE=1 vite build",
-    "clean": "bun run scripts/clean.ts",
+    "clean": "node scripts/_run.mjs scripts/clean.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -71,7 +70,6 @@
     "@tanstack/react-router-devtools": "^1.166.13",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.2",
-    "@types/bun": "^1.3.13",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -84,8 +82,12 @@
     "rollup-plugin-visualizer": "^7.0.1",
     "shadcn": "^4.7.0",
     "tailwindcss": "^4.2.4",
+    "tsx": "^4.20.6",
     "typescript": "^6.0.3",
     "vite": "^8.0.10",
     "vitest": "^4.1.5"
+  },
+  "engines": {
+    "node": ">=20.10"
   }
 }

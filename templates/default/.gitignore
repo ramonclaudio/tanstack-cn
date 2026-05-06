@@ -18,3 +18,4 @@ __unconfig*
 !.vscode/settings.json
 !.vscode/extensions.json
 .vercel
+.netlify

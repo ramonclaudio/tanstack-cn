@@ -4,7 +4,7 @@ Guidance for AI coding agents working in this repository. Complements the README
 
 ## Project
 
-TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn `base-luma` on `@base-ui/react`, Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. Bun runtime. Deploys anywhere Nitro runs.
+TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + shadcn `base-luma` on `@base-ui/react`, Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. Runtime-agnostic: works on bun, npm, pnpm, or yarn. Deploys anywhere Nitro runs.
 
 ## Conventions
 
@@ -17,14 +17,14 @@ TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + 
 ## Stack rules
 
 - **Base UI not Radix**: Primitives come from `@base-ui/react`. If a shadcn component references Radix, swap to the Base UI equivalent.
-- **Oxlint + Oxfmt, not ESLint or Prettier**: Never add `.prettierrc`, `eslint.config.js`, or related packages. Use `bun run lint:fix` / `bun run fmt`.
-- **base-luma theme**: Pinned in `components.json`. `bunx shadcn@latest add <name>` picks it up automatically.
-- **Bun**: Package manager and runtime. Use `bun add` / `bun remove`, not npm/pnpm/yarn.
+- **Oxlint + Oxfmt, not ESLint or Prettier**: Never add `.prettierrc`, `eslint.config.js`, or related packages. Use `<pm> run lint:fix` / `<pm> run fmt`.
+- **base-luma theme**: Pinned in `components.json`. `<pm-dlx> shadcn@latest add <name>` picks it up automatically.
+- **Runtime-agnostic**: scripts run on bun, npm, pnpm, or yarn. The root `scripts/dev.mjs` and template `scripts/_run.mjs` detect the active PM. Don't hardcode `bun` (or any other PM) in scripts, configs, or docs. Ray uses bun, but anything we ship must work for everyone.
 
 ## Before making changes
 
 1. Read `CLAUDE.md` / `AGENTS.md` (this file) and `README.md`.
-2. Run `bun run typecheck && bun run test` to confirm the baseline is green.
+2. Run `<pm> run typecheck && <pm> run test` (use whatever PM you have) to confirm the baseline is green.
 3. Check the five CI gates pass locally: typecheck, lint, fmt:check, test, build.
 
 ## Key files
@@ -41,7 +41,7 @@ TanStack Start starter on the latest majors. Vite 8 Rolldown+Oxc, Tailwind v4 + 
 
 ## Common tasks
 
-- **Add a shadcn component**: `bunx shadcn@latest add <name>`. Lands in `src/components/ui/` with base-luma styling.
+- **Add a shadcn component**: `<pm-dlx> shadcn@latest add <name>` (`npx`, `pnpm dlx`, `bunx`, or `yarn dlx`). Lands in `src/components/ui/` with base-luma styling.
 - **Add a new route**: Create `src/routes/<name>.tsx` with `createFileRoute`. TanStack Router regenerates `routeTree.gen.ts` on save.
 - **Add a server function**: Use `createServerFn` from `@tanstack/react-start`. Server functions run only on the server and can be called from the client.
 - **Change site metadata**: Edit `src/lib/site.ts`. Consumed by `src/lib/seo.ts` and `src/routes/__root.tsx`.

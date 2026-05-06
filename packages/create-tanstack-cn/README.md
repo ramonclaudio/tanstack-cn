@@ -3,16 +3,16 @@
 Scaffold a [tanstack-cn](https://github.com/ramonclaudio/tanstack-cn) project. TanStack Start on Vite 8 (Rolldown+Oxc), Tailwind v4 + shadcn `base-luma` on Base UI, Oxlint+Oxfmt.
 
 ```bash
-bunx create-tanstack-cn@latest my-app
+npm create tanstack-cn@latest my-app
 # or
 pnpm create tanstack-cn@latest my-app
 # or
-npm create tanstack-cn@latest my-app
+bunx create-tanstack-cn@latest my-app
 # or
 yarn create tanstack-cn my-app
 ```
 
-The CLI copies `templates/default` into your target directory, rewrites `package.json` with your project name (resets version to `0.0.0`, strips template-specific metadata), runs `<package-manager> install`, and inits a git repo with an initial commit. Package manager is detected from `npm_config_user_agent`, falls back to Bun.
+The CLI copies `templates/default` into your target directory, rewrites `package.json` with your project name (resets version to `0.0.0`, strips template-specific metadata), runs `<package-manager> install`, and inits a git repo with an initial commit. Package manager is detected from `npm_config_user_agent`, falls back to npm.
 
 ## Flags
 
@@ -29,7 +29,7 @@ The CLI copies `templates/default` into your target directory, rewrites `package
 
 ```bash
 cd my-app
-bun run dev
+npm run dev   # or pnpm dev, bun run dev, yarn dev
 ```
 
 Dev server on `http://localhost:3000`. Full docs ship in the scaffolded project's README.

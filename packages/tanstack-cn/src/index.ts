@@ -1,7 +1,8 @@
 export const REPO_URL = "https://github.com/ramonclaudio/tanstack-cn"
-export const CREATE_COMMAND = "bunx create-tanstack-cn@latest"
-export const PNPM_CREATE_COMMAND = "pnpm create tanstack-cn@latest"
 export const NPM_CREATE_COMMAND = "npm create tanstack-cn@latest"
+export const PNPM_CREATE_COMMAND = "pnpm create tanstack-cn@latest"
+export const BUN_CREATE_COMMAND = "bunx create-tanstack-cn@latest"
 export const YARN_CREATE_COMMAND = "yarn create tanstack-cn"
+export const CREATE_COMMAND = NPM_CREATE_COMMAND
 export const DEGIT_TEMPLATE = "github:ramonclaudio/tanstack-cn/templates/default"
 export const VERSION = "0.1.2"

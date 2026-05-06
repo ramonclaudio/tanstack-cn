@@ -4,21 +4,23 @@
 
 ![tanstack-cn](templates/default/public/og.png)
 
-Home for the [`create-tanstack-cn`](https://www.npmjs.com/package/create-tanstack-cn) CLI and the [template](templates/default) it scaffolds. Spins up a new TanStack Start + shadcn project: Vite 8 (Rolldown + Oxc), Tailwind v4, shadcn/ui `base-luma` on Base UI, React 19, TypeScript 6, Vitest 4, Bun.
+Home for the [`create-tanstack-cn`](https://www.npmjs.com/package/create-tanstack-cn) CLI and the [template](templates/default) it scaffolds. Spins up a new TanStack Start + shadcn project: Vite 8 (Rolldown + Oxc), Tailwind v4, shadcn/ui `base-luma` on Base UI, React 19, TypeScript 6, Vitest 4. Use any package manager: npm, pnpm, bun, or yarn.
 
 ## Scaffold
 
 ```bash
-bunx create-tanstack-cn@latest my-app
+npm create tanstack-cn@latest my-app
 # or
 pnpm create tanstack-cn@latest my-app
 # or
-npm create tanstack-cn@latest my-app
+bunx create-tanstack-cn@latest my-app
 # or
 yarn create tanstack-cn my-app
 ```
 
-Live demo: [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app)
+Live demo: [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app). The Vercel project has Root Directory set to `templates/default`, so it deploys the same way your scaffolded `my-app` does.
+
+Scaffolded projects ship with `netlify.toml` and `wrangler.toml`. Vercel auto-detects Nitro. Deploy steps live in the scaffolded `my-app/README.md`.
 
 ## License
 

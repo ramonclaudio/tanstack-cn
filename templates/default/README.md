@@ -1,9 +1,9 @@
 # tanstack-cn app
 
-Scaffolded from [`create-tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn). TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn `base-luma` on Base UI. Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. Bun runtime.
+Scaffolded from [`create-tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn). TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn `base-luma` on Base UI. Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. Use any PM: npm, pnpm, bun, or yarn.
 
 ```bash
-bun run dev
+npm run dev    # or pnpm dev, bun run dev, yarn dev
 ```
 
 Dev server on `http://localhost:3000`.
@@ -11,26 +11,29 @@ Dev server on `http://localhost:3000`.
 ## Scripts
 
 ```
-bun run dev                    Vite 8 dev server with HMR on :3000
-bun run build                  vite build && tsc --noEmit
-bun run start                  Nitro SSR server from .output/
-bun run preview                vite preview
-bun run typecheck              tsc --noEmit
-bun run lint                   oxlint
-bun run lint:fix               oxlint --fix (safe fixes only)
-bun run lint:fix:suggest       oxlint --fix --fix-suggestions
-bun run lint:fix:dangerous     oxlint --fix --fix-suggestions --fix-dangerously
-bun run fmt                    oxfmt
-bun run fmt:check              oxfmt --check
-bun run test                   vitest run
-bun run test:watch             vitest
-bun run clean                  trash artifacts, reinstall, build, fmt:check, lint, typecheck, test
+dev                            Vite 8 dev server with HMR on :3000
+build                          vite build && tsc --noEmit
+start                          Nitro SSR server from .output/
+preview                        vite preview
+typecheck                      tsc --noEmit
+lint                           oxlint
+lint:fix                       oxlint --fix (safe fixes only)
+lint:fix:suggest               oxlint --fix --fix-suggestions
+lint:fix:dangerous             oxlint --fix --fix-suggestions --fix-dangerously
+fmt                            oxfmt
+fmt:check                      oxfmt --check
+test                           vitest run
+test:watch                     vitest
+clean                          trash artifacts, reinstall, fmt, lint --fix, build, typecheck, test
 ```
+
+Invoke with your package manager: `npm run <name>`, `pnpm <name>`, `bun run <name>`, or `yarn <name>`. The `clean` script auto-detects which one and reinstalls accordingly.
 
 ## Adding shadcn components
 
 ```bash
-bunx shadcn@latest add sheet dialog tabs
+npx shadcn@latest add sheet dialog tabs
+# or: pnpm dlx, bunx, yarn dlx
 ```
 
 Components land in `src/components/ui/`. Import via the `@/` alias:
@@ -65,7 +68,8 @@ Files to update:
 ├── .vscode/
 │   └── settings.json                # routeTree.gen.ts readonly + excluded from search/watcher
 ├── scripts/
-│   └── clean.ts                     # full reset + verify chain (`bun run clean`)
+│   ├── _run.mjs                     # runtime-agnostic launcher (bun -> tsx -> npx tsx)
+│   └── clean.ts                     # PM-agnostic full reset + verify chain
 └── src/
     ├── components/
     │   ├── default-catch-boundary.tsx   # router error boundary
@@ -93,12 +97,35 @@ Files to update:
 
 ## Deploying
 
-Nitro auto-detects the preset. Push to Vercel, Cloudflare Pages, or Netlify, or run via Node or Bun. Security headers ship from `routeRules` in `vite.config.ts`, same on every preset.
+Nitro auto-detects the platform from build env (`VERCEL`, `NETLIFY`, `CF_PAGES`) and emits the right output. Security headers ship from `routeRules` in `vite.config.ts`, same on every preset.
+
+Run locally:
 
 ```bash
-bun run build
-bun run start   # Node
+npm run build
+npm run start   # Node SSR from .output/
 ```
+
+### Vercel
+
+Push the repo, import in the [Vercel dashboard](https://vercel.com/new). Vercel auto-detects Nitro and runs `npm run build`. No config file needed.
+
+### Netlify
+
+Push the repo, connect in the [Netlify dashboard](https://app.netlify.com/start). The shipped `netlify.toml` declares build command (`npm run build`), publish dir (`dist`), and the SSR functions dir (`.netlify/functions-internal`). Nothing to configure.
+
+### Cloudflare Pages
+
+Push the repo, create a Pages project in the [Cloudflare dashboard](https://dash.cloudflare.com), connect the repo. Set:
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+
+The shipped `wrangler.toml` sets `pages_build_output_dir = "dist"` and a `compatibility_date`. Nitro emits `dist/_worker.js` for SSR plus static assets, which Pages picks up automatically.
+
+### Other platforms
+
+Anywhere Nitro runs: Node, Bun, AWS Lambda, Deno Deploy, etc. Set `NITRO_PRESET` in your build env (e.g. `NITRO_PRESET=node-server`) and run `npm run build`. Output lands in `.output/`.
 
 Full docs: [`ramonclaudio/tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn).
 
