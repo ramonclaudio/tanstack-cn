@@ -63,7 +63,14 @@ jobs:
           version: 10
 
       - name: Install
-        run: ${{ matrix.pm }} install
+        # pnpm walks up to the monorepo's pnpm-workspace.yaml and installs at
+        # the wrong root unless told to treat templates/default as standalone.
+        run: |
+          if [ "${{ matrix.pm }}" = "pnpm" ]; then
+            pnpm install --ignore-workspace
+          else
+            ${{ matrix.pm }} install
+          fi
 
       - name: Typecheck
         run: ${{ matrix.pm }} run typecheck
