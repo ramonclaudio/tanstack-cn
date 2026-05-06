@@ -6,14 +6,6 @@ import { nitro } from "nitro/vite"
 import { visualizer } from "rollup-plugin-visualizer"
 import { defineConfig } from "vite"
 
-const commitSha =
-  process.env.VERCEL_GIT_COMMIT_SHA ??
-  process.env.COMMIT_REF ??
-  process.env.WORKERS_CI_COMMIT_SHA ??
-  process.env.CF_PAGES_COMMIT_SHA ??
-  process.env.GITHUB_SHA ??
-  ""
-
 const securityHeaders: Record<string, string> = {
   "strict-transport-security": "max-age=63072000; includeSubDomains",
   "x-content-type-options": "nosniff",
@@ -26,9 +18,6 @@ const securityHeaders: Record<string, string> = {
 }
 
 export default defineConfig({
-  define: {
-    "import.meta.env.VITE_COMMIT_SHA": JSON.stringify(commitSha),
-  },
   server: {
     port: 3000,
     warmup: {

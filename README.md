@@ -2,7 +2,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg?style=flat-square)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/ramonclaudio/tanstack-cn/ci.yml?branch=main&label=ci&style=flat-square&logo=github)](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/ci.yml)
-[![Deploys](https://img.shields.io/github/actions/workflow/status/ramonclaudio/tanstack-cn/deploys.yml?branch=main&label=deploys&style=flat-square&logo=github)](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/deploys.yml)
 [![Vercel](https://img.shields.io/website?url=https%3A%2F%2Ftanstack-cn.vercel.app&label=vercel&logo=vercel&logoColor=white&up_color=black&down_color=red&style=flat-square)](https://tanstack-cn.vercel.app)
 [![Cloudflare Workers](https://img.shields.io/website?url=https%3A%2F%2Ftanstack-cn.hello-8fa.workers.dev&label=cloudflare%20workers&logo=cloudflare&logoColor=white&up_color=F38020&down_color=red&style=flat-square)](https://tanstack-cn.hello-8fa.workers.dev)
 
@@ -24,7 +23,7 @@ yarn create tanstack-cn my-app
 
 ## Live demos
 
-The same template, deployed to two supported targets. Every push to `main` auto-deploys to both, and the [Deploys workflow](.github/workflows/deploys.yml) verifies each URL serves the latest commit before going green.
+The same template, deployed to two supported targets. Every push to `main` auto-deploys to both via the platforms' GitHub integrations, and each posts its own commit status (`Vercel`, `Workers Builds: tanstack-cn`).
 
 | Platform | URL | Config |
 |---|---|---|
@@ -34,8 +33,6 @@ The same template, deployed to two supported targets. Every push to `main` auto-
 Each platform has Root Directory pointed at `templates/default`, so the demos build the exact same way your scaffolded `my-app` does. Pick whichever target fits, or deploy to both. Per-platform deploy steps live in the scaffolded `my-app/README.md`. Cloudflare uses Workers + Static Assets (not Pages — Workers is the modern path Cloudflare recommends as of 2026).
 
 Scaffolded projects also ship `netlify.toml` for Netlify Functions deploys; we don't run a Netlify demo, but the config is there if you want it.
-
-Deploy verification works by injecting the commit SHA into a `<meta name="x-commit-sha">` tag at build time. CI polls each production URL and only passes once both are serving the head commit.
 
 ## License
 

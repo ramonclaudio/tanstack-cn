@@ -2,7 +2,6 @@
 
 interface ImportMetaEnv {
   readonly VITE_SITE_URL?: string
-  readonly VITE_COMMIT_SHA?: string
 }
 
 interface ImportMeta {
