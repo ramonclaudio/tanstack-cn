@@ -18,15 +18,6 @@ bunx create-tanstack-cn@latest my-app
 yarn create tanstack-cn my-app
 ```
 
-## Live demos
-
-| Platform | URL | Config |
-|---|---|---|
-| Vercel | [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app) | [`vercel.json`](templates/default/vercel.json) |
-| Cloudflare Workers | [tanstack-cn.hello-8fa.workers.dev](https://tanstack-cn.hello-8fa.workers.dev) | [`wrangler.toml`](templates/default/wrangler.toml) |
-
-Both auto-deploy from `main` with Root Directory at `templates/default`. Per-platform deploy steps live in your scaffolded `my-app/README.md`.
-
 ## License
 
 MIT.

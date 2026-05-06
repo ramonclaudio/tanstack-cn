@@ -8,29 +8,6 @@ npm run dev    # or pnpm dev, bun run dev, yarn dev
 
 Dev server on `http://localhost:3000`.
 
-## What's wired
-
-### Launch baseline
-
-- Nitro `routeRules` in `vite.config.ts` emit security headers on every preset: `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` (camera, mic, geolocation off), `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`, `Origin-Agent-Cluster`
-- TanStack Router `defaultPreload: "intent"`: hover prefetches the route's JS chunk and loader data
-- Top header bar with home icon and theme toggle. Semantic `<header>` + `<main id="main">`, working skip link, `prefers-reduced-motion` respected globally
-
-### SEO and social
-
-- `src/lib/seo.ts`: absolute `og:image`, `og:url`, `og:image:width/height`, `twitter:card` auto-promotion
-- Canonical link, `og:site_name`, full Twitter meta, JSON-LD `@graph` (`WebSite` + `SoftwareSourceCode` + `Person`)
-- OG image: 2400×1260 PNG (2x of 1200×630), under 500KB, unfurls on X, Facebook, LinkedIn, Discord, Slack, iMessage
-- `public/sitemap.xml`, `public/robots.txt` with AI training crawler opt-outs (GPTBot, ClaudeBot, CCBot, Google-Extended, Applebot-Extended, Bytespider, meta-externalagent)
-- `public/.well-known/security.txt` per RFC 9116
-- `public/llms.txt` + `public/llms-full.txt`
-
-### PWA + icons
-
-- `favicon.svg` primary + multi-size `favicon.ico` fallback, `apple-touch-icon.png` (180×180)
-- `manifest.webmanifest` with `any`, `maskable`, `monochrome` icons + wide/narrow screenshots
-- `theme-color` per scheme via `media` queries, `color-scheme`, `mobile-web-app-capable`
-
 ## Scripts
 
 ```
@@ -180,7 +157,7 @@ npx netlify env:set VITE_SITE_URL https://yourdomain.com --context production
 
 ### Cloudflare Workers
 
-Ships `wrangler.toml`. Workers + Static Assets, not Pages (Pages reserves the `ASSETS` binding Nitro needs). Deploy via [dash.cloudflare.com](https://dash.cloudflare.com) → Workers & Pages → Create → Workers (connect repo, set Build command `npm run build` and Deploy command `npx wrangler deploy`, add `VITE_SITE_URL` under Variables and Secrets) or:
+Ships `wrangler.toml`. Workers + Static Assets, not Pages (Pages reserves the `ASSETS` binding Nitro needs). Deploy via [dash.cloudflare.com](https://dash.cloudflare.com) → Workers & Pages → Create → Workers (connect repo, set Build command `npm run build` and Deploy command `npx wrangler deploy`, add `VITE_SITE_URL` under Settings → Build → Variables and secrets, **not** the runtime one near the top — Vite inlines `import.meta.env.VITE_*` at build) or:
 
 ```bash
 npx wrangler login
@@ -191,6 +168,16 @@ npx wrangler deploy
 ### Other platforms
 
 Anywhere Nitro runs: Node, Bun, AWS Lambda, Deno Deploy, etc. Set `NITRO_PRESET` (e.g. `NITRO_PRESET=node-server`) and run `npm run build`. Output lands in `.output/`.
+
+### Verify your deploy
+
+After the first production deploy, smoke-test that `VITE_SITE_URL` actually got inlined:
+
+```bash
+curl -s https://your-app.example.com | grep -oE '(og:url|rel="canonical")[^>]*'
+```
+
+Both lines should reference your domain. If you see `localhost`, the env var didn't reach the build. Set it in the platform's env vars, then redeploy (build-time vars don't apply retroactively).
 
 Full docs: [`ramonclaudio/tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn).
 
