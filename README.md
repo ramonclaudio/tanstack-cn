@@ -20,16 +20,12 @@ yarn create tanstack-cn my-app
 
 ## Live demos
 
-The same template, deployed to two supported targets. Every push to `main` auto-deploys to both via the platforms' GitHub integrations, and each posts its own commit status (`Vercel`, `Workers Builds: tanstack-cn`).
-
 | Platform | URL | Config |
 |---|---|---|
 | Vercel | [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app) | [`vercel.json`](templates/default/vercel.json) |
 | Cloudflare Workers | [tanstack-cn.hello-8fa.workers.dev](https://tanstack-cn.hello-8fa.workers.dev) | [`wrangler.toml`](templates/default/wrangler.toml) |
 
-Each platform has Root Directory pointed at `templates/default`, so the demos build the exact same way your scaffolded `my-app` does. Pick whichever target fits, or deploy to both. Per-platform deploy steps live in the scaffolded `my-app/README.md`. Cloudflare uses Workers + Static Assets (not Pages — Workers is the modern path Cloudflare recommends as of 2026).
-
-Scaffolded projects also ship `netlify.toml` for Netlify Functions deploys; we don't run a Netlify demo, but the config is there if you want it.
+Both auto-deploy from `main` with Root Directory at `templates/default`. Per-platform deploy steps live in your scaffolded `my-app/README.md`.
 
 ## License
 
