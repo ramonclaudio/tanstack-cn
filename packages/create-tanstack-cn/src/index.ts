@@ -55,6 +55,7 @@ async function main() {
     await cp(TEMPLATE_DIR, target, { recursive: true })
     await restoreStrippedDotfiles(target)
     await rewritePackage(target)
+    await rewriteWranglerToml(target)
     copySpin.succeed(`Template copied`)
   } catch (err) {
     copySpin.fail(`Template copy failed`)
@@ -147,6 +148,19 @@ function toPackageName(raw: string): string {
     .replace(/[^a-z0-9-]/g, "-")
     .replace(/^-+|-+$/g, "")
   return name || "my-tanstack-cn-app"
+}
+
+// Set wrangler.toml's `name` field to match the project name. Cloudflare uses
+// this as the deployed Worker's subdomain (`<name>.<account>.workers.dev`),
+// so leaving the template's literal "tanstack-cn" in a scaffolded project
+// would either collide with our demo or deploy under the wrong name.
+async function rewriteWranglerToml(target: string): Promise<void> {
+  const tomlPath = join(target, "wrangler.toml")
+  if (!existsSync(tomlPath)) return
+  const raw = await readFile(tomlPath, "utf8")
+  const projectName = toPackageName(target)
+  const next = raw.replace(/^name\s*=\s*"[^"]*"\s*$/m, `name = "${projectName}"`)
+  if (next !== raw) await writeFile(tomlPath, next)
 }
 
 function detectPackageManager(): PM {
