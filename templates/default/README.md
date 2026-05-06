@@ -97,7 +97,7 @@ Files to update:
 
 ## Deploying
 
-Nitro auto-detects the platform from build env (`VERCEL`, `NETLIFY`, `CF_PAGES`) and emits the right output. Security headers ship from `routeRules` in `vite.config.ts`, same on every preset.
+Nitro auto-detects the platform from build env (`VERCEL`, `NETLIFY`, Cloudflare Workers) and emits the right output. Security headers ship from `routeRules` in `vite.config.ts`, same on every preset.
 
 Run locally:
 
@@ -114,14 +114,16 @@ Push the repo, import in the [Vercel dashboard](https://vercel.com/new). Vercel 
 
 Push the repo, connect in the [Netlify dashboard](https://app.netlify.com/start). The shipped `netlify.toml` declares build command (`npm run build`), publish dir (`dist`), and the SSR functions dir (`.netlify/functions-internal`). Nothing to configure.
 
-### Cloudflare Pages
+### Cloudflare Workers
 
-Push the repo, create a Pages project in the [Cloudflare dashboard](https://dash.cloudflare.com), connect the repo. Set:
+Cloudflare recommends Workers + Static Assets for new projects (Pages reached feature parity then was effectively superseded in 2026). Push the repo, then in the [Cloudflare dashboard](https://dash.cloudflare.com) → Workers & Pages → Create → Workers, connect the repo. Set:
 
 - Build command: `npm run build`
-- Build output directory: `dist`
+- Deploy command: `npx wrangler deploy` (or `bunx wrangler deploy`, default for new Workers builds)
 
-The shipped `wrangler.toml` sets `pages_build_output_dir = "dist"` and a `compatibility_date`. Nitro emits `dist/_worker.js` for SSR plus static assets, which Pages picks up automatically.
+Nitro auto-detects the build env and uses its `cloudflare-module` preset, emitting `.output/server/index.mjs` (the Worker) plus `.output/public/` (static assets bound to `ASSETS`). The shipped `wrangler.toml` declares `compatibility_date` and `nodejs_compat`. Nitro auto-generates the rest of the deploy config (`.output/server/wrangler.json`) at build time.
+
+Don't create a Pages project for new deployments — Pages reserves the `ASSETS` binding name that Nitro's modern preset uses, which causes deploy to fail.
 
 ### Other platforms
 
