@@ -1,9 +1,9 @@
 # tanstack-cn app
 
-Scaffolded from [`create-tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn). TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn `base-luma` on Base UI. Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. Works with bun, pnpm, npm, or yarn.
+Scaffolded from [`create-tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn). TanStack Start on Vite 8 + Oxc, Tailwind v4 + shadcn `base-luma` on Base UI. Oxlint + Oxfmt. React 19, TypeScript 6, Vitest 4. Use any PM: npm, pnpm, bun, or yarn.
 
 ```bash
-bun run dev    # or pnpm dev, npm run dev, yarn dev
+npm run dev    # or pnpm dev, bun run dev, yarn dev
 ```
 
 Dev server on `http://localhost:3000`.
@@ -27,13 +27,13 @@ test:watch                     vitest
 clean                          trash artifacts, reinstall, build, fmt:check, lint, typecheck, test
 ```
 
-Invoke with your package manager: `bun run <name>`, `pnpm <name>`, `npm run <name>`, or `yarn <name>`. The `clean` script auto-detects which one and reinstalls accordingly.
+Invoke with your package manager: `npm run <name>`, `pnpm <name>`, `bun run <name>`, or `yarn <name>`. The `clean` script auto-detects which one and reinstalls accordingly.
 
 ## Adding shadcn components
 
 ```bash
-bunx shadcn@latest add sheet dialog tabs
-# or: pnpm dlx, npx, yarn dlx
+npx shadcn@latest add sheet dialog tabs
+# or: pnpm dlx, bunx, yarn dlx
 ```
 
 Components land in `src/components/ui/`. Import via the `@/` alias:
@@ -97,12 +97,35 @@ Files to update:
 
 ## Deploying
 
-Nitro auto-detects the preset. Push to Vercel, Cloudflare Pages, or Netlify, or run via Node or Bun. Security headers ship from `routeRules` in `vite.config.ts`, same on every preset.
+Nitro auto-detects the platform from build env (`VERCEL`, `NETLIFY`, `CF_PAGES`) and emits the right output. Security headers ship from `routeRules` in `vite.config.ts`, same on every preset.
+
+Run locally:
 
 ```bash
-bun run build
-bun run start   # Node
+npm run build
+npm run start   # Node SSR from .output/
 ```
+
+### Vercel
+
+Push the repo, import in the [Vercel dashboard](https://vercel.com/new). Vercel auto-detects Nitro and runs `npm run build`. No config file needed.
+
+### Netlify
+
+Push the repo, connect in the [Netlify dashboard](https://app.netlify.com/start). The shipped `netlify.toml` declares build command (`npm run build`), publish dir (`dist`), and the SSR functions dir (`.netlify/functions-internal`). Nothing to configure.
+
+### Cloudflare Pages
+
+Push the repo, create a Pages project in the [Cloudflare dashboard](https://dash.cloudflare.com), connect the repo. Set:
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+
+The shipped `wrangler.toml` sets `pages_build_output_dir = "dist"` and a `compatibility_date`. Nitro emits `dist/_worker.js` for SSR plus static assets, which Pages picks up automatically.
+
+### Other platforms
+
+Anywhere Nitro runs: Node, Bun, AWS Lambda, Deno Deploy, etc. Set `NITRO_PRESET` in your build env (e.g. `NITRO_PRESET=node-server`) and run `npm run build`. Output lands in `.output/`.
 
 Full docs: [`ramonclaudio/tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn).
 
