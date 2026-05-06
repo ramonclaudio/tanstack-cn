@@ -133,26 +133,50 @@ npm run start   # Node SSR from .output/
 
 ### Vercel
 
-Push the repo, import in the [Vercel dashboard](https://vercel.com/new). Vercel offers [zero-configuration support for Nitro](https://vercel.com/changelog/zero-configuration-support-for-nitro), so the included `vercel.json` is minimal (just the build command for documentation). Nitro emits to `.vercel/output/`, which Vercel picks up automatically via the Build Output API.
+Vercel offers [zero-configuration support for Nitro](https://vercel.com/changelog/zero-configuration-support-for-nitro). The shipped `vercel.json` is minimal. Nitro emits to `.vercel/output/`, which Vercel picks up via the Build Output API.
 
-After connecting your domain: Project Settings → Environment Variables → add `VITE_SITE_URL=https://yourdomain.com` for **Production** (and Preview if you want preview URLs to use the prod domain).
+CLI:
+
+```bash
+npx vercel link
+npx vercel --prod
+npx vercel env add VITE_SITE_URL production   # paste https://yourdomain.com when prompted
+```
+
+Or via dashboard: import the repo in the [Vercel dashboard](https://vercel.com/new). After connecting your domain: Project Settings → Environment Variables → add `VITE_SITE_URL=https://yourdomain.com` for **Production** (and Preview if you want previews to use the prod domain).
 
 ### Netlify
 
-Push the repo, connect in the [Netlify dashboard](https://app.netlify.com/start). The shipped `netlify.toml` declares build command (`npm run build`), publish dir (`dist`), and the SSR functions dir (`.netlify/functions-internal`). Nothing to configure.
+The shipped `netlify.toml` declares build command (`npm run build`), publish dir (`dist`), and the SSR functions dir (`.netlify/functions-internal`).
 
-After connecting your domain: Site Settings → Environment Variables → add `VITE_SITE_URL=https://yourdomain.com`.
+CLI:
+
+```bash
+npx netlify init                                              # creates the site, links the repo
+npx netlify deploy --prod
+npx netlify env:set VITE_SITE_URL https://yourdomain.com --context production
+```
+
+Or via dashboard: connect the repo at [app.netlify.com/start](https://app.netlify.com/start). After connecting your domain: Site Settings → Environment Variables → add `VITE_SITE_URL=https://yourdomain.com`.
 
 ### Cloudflare Workers
 
-Cloudflare recommends Workers + Static Assets for new projects (Pages reached feature parity then was effectively superseded in 2026). Push the repo, then in the [Cloudflare dashboard](https://dash.cloudflare.com) → Workers & Pages → Create → Workers, connect the repo. Set:
+Cloudflare recommends Workers + Static Assets for new projects (Pages reached feature parity then was effectively superseded in 2026). Nitro picks the `cloudflare-module` preset automatically, emitting `.output/server/index.mjs` (the Worker) plus `.output/public/` (static assets bound to `ASSETS`). The shipped `wrangler.toml` declares `compatibility_date` and `nodejs_compat`. Nitro auto-generates the rest of the deploy config (`.output/server/wrangler.json`) at build time.
+
+CLI:
+
+```bash
+npx wrangler login
+VITE_SITE_URL=https://yourdomain.com npm run build
+npx wrangler deploy
+```
+
+`VITE_SITE_URL` is build-time (Vite inlines `import.meta.env.VITE_*` at build), so it must be in the env when `npm run build` runs. For automated CI deploys via Cloudflare Workers Builds, set it in the dashboard: project Settings → Variables and Secrets → add `VITE_SITE_URL=https://yourdomain.com`. Same setting for all environments unless you split prod/preview.
+
+Or via dashboard: [dash.cloudflare.com](https://dash.cloudflare.com) → Workers & Pages → Create → Workers, connect the repo. Set:
 
 - Build command: `npm run build`
 - Deploy command: `npx wrangler deploy` (or `bunx wrangler deploy`, default for new Workers builds)
-
-Nitro auto-detects the build env and uses its `cloudflare-module` preset, emitting `.output/server/index.mjs` (the Worker) plus `.output/public/` (static assets bound to `ASSETS`). The shipped `wrangler.toml` declares `compatibility_date` and `nodejs_compat`. Nitro auto-generates the rest of the deploy config (`.output/server/wrangler.json`) at build time.
-
-After connecting your domain: project Settings → Variables and Secrets → add `VITE_SITE_URL=https://yourdomain.com`. Same setting for all environments unless you split prod/preview.
 
 Don't create a Pages project for new deployments — Pages reserves the `ASSETS` binding name that Nitro's modern preset uses, which causes deploy to fail.
 
