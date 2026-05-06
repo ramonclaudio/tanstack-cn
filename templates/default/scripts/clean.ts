@@ -2,14 +2,18 @@
  * tanstack-cn clean script.
  *
  * Wipes node_modules, lockfiles, build artifacts, and generated files.
- * Reinstalls deps via the detected package manager. Runs the verify chain
- * (build, fmt:check, lint, typecheck, test) to confirm the project is clean.
+ * Reinstalls deps via the detected package manager. Auto-fixes formatting
+ * and lint, then runs the verify chain (build, typecheck, test) so the
+ * project lands in a known-good state.
+ *
+ * Order is fix-then-verify: oxfmt, oxlint --fix, vite build, tsc --noEmit,
+ * vitest run. Verifications run on the cleaned source.
  *
  * PM-agnostic: detects bun/pnpm/yarn/npm via `npm_config_user_agent` or lockfile.
  * Uses macOS `trash` so anything wiped is recoverable.
  *
  * Usage:
- *   <pm> run clean       # full wipe + reinstall + verify
+ *   <pm> run clean       # full wipe + reinstall + fix + verify
  */
 
 import { spawn as nodeSpawn } from "node:child_process"
@@ -111,9 +115,9 @@ void (async () => {
     })
 
     await step(`${pm} install`, () => run([pm, "install"]))
+    await step("oxfmt", () => run(["oxfmt"]))
+    await step("oxlint --fix", () => run(["oxlint", "--fix"]))
     await step("vite build", () => run(["vite", "build"]))
-    await step("oxfmt --check", () => run(["oxfmt", "--check"]))
-    await step("oxlint", () => run(["oxlint"]))
     await step("tsc --noEmit", () => run(["tsc", "--noEmit"]))
     await step("vitest run", () => run(["vitest", "run"]))
 

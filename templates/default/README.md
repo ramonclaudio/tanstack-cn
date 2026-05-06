@@ -24,7 +24,7 @@ fmt                            oxfmt
 fmt:check                      oxfmt --check
 test                           vitest run
 test:watch                     vitest
-clean                          trash artifacts, reinstall, build, fmt:check, lint, typecheck, test
+clean                          trash artifacts, reinstall, fmt, lint --fix, build, typecheck, test
 ```
 
 Invoke with your package manager: `npm run <name>`, `pnpm <name>`, `bun run <name>`, or `yarn <name>`. The `clean` script auto-detects which one and reinstalls accordingly.
