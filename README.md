@@ -1,9 +1,6 @@
 # tanstack-cn
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg?style=flat-square)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/ramonclaudio/tanstack-cn/ci.yml?branch=main&label=ci&style=flat-square&logo=github)](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/ci.yml)
-[![Vercel](https://img.shields.io/website?url=https%3A%2F%2Ftanstack-cn.vercel.app&label=vercel&logo=vercel&logoColor=white&up_color=black&down_color=red&style=flat-square)](https://tanstack-cn.vercel.app)
-[![Cloudflare Workers](https://img.shields.io/website?url=https%3A%2F%2Ftanstack-cn.hello-8fa.workers.dev&label=cloudflare%20workers&logo=cloudflare&logoColor=white&up_color=F38020&down_color=red&style=flat-square)](https://tanstack-cn.hello-8fa.workers.dev)
 
 ![tanstack-cn](templates/default/public/og.png)
 
