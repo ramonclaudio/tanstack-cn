@@ -20,7 +20,7 @@ yarn create tanstack-cn my-app
 
 Live demo: [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app). The Vercel project has Root Directory set to `templates/default`, so it deploys the same way your scaffolded `my-app` does.
 
-Scaffolded projects ship with `netlify.toml` and `wrangler.toml` and deploy to Vercel, Netlify, or Cloudflare Workers (not Pages — Workers + Static Assets is the modern path Cloudflare recommends as of 2026). Vercel auto-detects Nitro. Deploy steps live in the scaffolded `my-app/README.md`.
+Scaffolded projects ship with `vercel.json`, `netlify.toml`, and `wrangler.toml` and deploy to Vercel, Netlify, or Cloudflare Workers (not Pages — Workers + Static Assets is the modern path Cloudflare recommends as of 2026). Deploy steps live in the scaffolded `my-app/README.md`.
 
 ## License
 

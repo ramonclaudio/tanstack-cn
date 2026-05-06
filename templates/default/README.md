@@ -108,7 +108,7 @@ npm run start   # Node SSR from .output/
 
 ### Vercel
 
-Push the repo, import in the [Vercel dashboard](https://vercel.com/new). Vercel auto-detects Nitro and runs `npm run build`. No config file needed.
+Push the repo, import in the [Vercel dashboard](https://vercel.com/new). Vercel offers [zero-configuration support for Nitro](https://vercel.com/changelog/zero-configuration-support-for-nitro), so the included `vercel.json` is minimal (just the build command for documentation). Nitro emits to `.vercel/output/`, which Vercel picks up automatically via the Build Output API.
 
 ### Netlify
 
