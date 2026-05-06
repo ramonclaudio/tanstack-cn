@@ -13,28 +13,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  expected-sha:
-    name: Resolve expected sha
-    runs-on: ubuntu-latest
-    outputs:
-      sha: ${{ steps.resolve.outputs.sha }}
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-      - id: resolve
-        run: |
-          # platforms only rebuild when files inside the configured root dir change.
-          # the deployed sha is the most recent commit reachable from HEAD that
-          # touched templates/default/. fall back to HEAD when nothing matches.
-          sha=$(git rev-list -n 1 HEAD -- templates/default/ || true)
-          if [ -z "$sha" ]; then sha="$GITHUB_SHA"; fi
-          echo "expected=$sha"
-          echo "sha=$sha" >> "$GITHUB_OUTPUT"
-
   vercel:
     name: Vercel
-    needs: expected-sha
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -42,11 +22,10 @@ jobs:
       - uses: ./.github/actions/wait-for-sha
         with:
           url: https://tanstack-cn.vercel.app
-          expected: ${{ needs.expected-sha.outputs.sha }}
+          expected: ${{ github.sha }}
 
   netlify:
     name: Netlify
-    needs: expected-sha
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -54,11 +33,10 @@ jobs:
       - uses: ./.github/actions/wait-for-sha
         with:
           url: https://tanstack-cn.netlify.app
-          expected: ${{ needs.expected-sha.outputs.sha }}
+          expected: ${{ github.sha }}
 
   cloudflare:
     name: Cloudflare Workers
-    needs: expected-sha
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -66,4 +44,4 @@ jobs:
       - uses: ./.github/actions/wait-for-sha
         with:
           url: https://tanstack-cn.hello-8fa.workers.dev
-          expected: ${{ needs.expected-sha.outputs.sha }}
+          expected: ${{ github.sha }}
