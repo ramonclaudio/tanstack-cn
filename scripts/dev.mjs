@@ -35,11 +35,13 @@ function exec(cmd, args, cwd) {
   })
 }
 
+const USAGE = "usage: dev.mjs ws|template <script>"
+
 const pm = detectPM()
 const [, , mode, target] = process.argv
 
 if (!mode || !target) {
-  console.error("usage: dev.mjs ws|template <script>")
+  console.error(USAGE)
   process.exit(2)
 }
 

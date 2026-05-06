@@ -6,6 +6,8 @@ dist
 .wrangler
 .output
 .vinxi
+.vercel
+.netlify
 *.local
 .env
 __unconfig*
