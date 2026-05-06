@@ -3,11 +3,8 @@ node_modules
 dist
 .nitro
 .tanstack
-.wrangler
 .output
 .vinxi
-.vercel
-.netlify
 *.local
 .env
 __unconfig*
