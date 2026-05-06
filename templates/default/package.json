@@ -37,6 +37,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "postinstall": "node scripts/apply-patches.mjs",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "lint:fix:suggest": "oxlint --fix --fix-suggestions",
