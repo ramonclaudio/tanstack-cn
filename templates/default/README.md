@@ -50,11 +50,11 @@ The scaffolder rewrote `package.json` `name` and `wrangler.toml` `name` for you.
 
 **Project metadata** (`src/lib/site.ts`):
 
-```ts
-SITE_URL          // canonical URL, og:url, sitemap entries
-SITE_NAME         // used in <title> suffix and OG site name
-SITE_TITLE        // default page title
-SITE_DESCRIPTION  // meta description, OG description
+```
+SITE_URL          # canonical URL, og:url, sitemap entries
+SITE_NAME         # used in <title> suffix and OG site name
+SITE_TITLE        # default page title
+SITE_DESCRIPTION  # meta description, OG description
 AUTHOR_NAME, AUTHOR_URL, REPO_URL
 ```
 
