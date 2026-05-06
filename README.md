@@ -1,6 +1,7 @@
 # tanstack-cn
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg?style=flat-square)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/ramonclaudio/tanstack-cn/ci.yml?branch=main&label=ci&style=flat-square&logo=github)](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/ci.yml)
 [![Deploys](https://img.shields.io/github/actions/workflow/status/ramonclaudio/tanstack-cn/deploys.yml?branch=main&label=deploys&style=flat-square&logo=github)](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/deploys.yml)
 [![Vercel](https://img.shields.io/website?url=https%3A%2F%2Ftanstack-cn.vercel.app&label=vercel&logo=vercel&logoColor=white&up_color=black&down_color=red&style=flat-square)](https://tanstack-cn.vercel.app)
 [![Netlify](https://img.shields.io/website?url=https%3A%2F%2Ftanstack-cn.netlify.app&label=netlify&logo=netlify&logoColor=white&up_color=00C7B7&down_color=red&style=flat-square)](https://tanstack-cn.netlify.app)
