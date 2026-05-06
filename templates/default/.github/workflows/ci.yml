@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: ${{ matrix.pm }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        pm: [bun, pnpm, npm, yarn]
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Bun
+        if: matrix.pm == 'bun'
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Node
+        if: matrix.pm != 'bun'
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24.x"
+
+      - name: Setup pnpm
+        if: matrix.pm == 'pnpm'
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install
+        run: ${{ matrix.pm }} install
+
+      - name: Typecheck
+        run: ${{ matrix.pm }} run typecheck
+
+      - name: Lint
+        run: ${{ matrix.pm }} run lint
+
+      - name: Format check
+        run: ${{ matrix.pm }} run fmt:check
+
+      - name: Test
+        run: ${{ matrix.pm }} run test
+
+      - name: Build
+        run: ${{ matrix.pm }} run build

@@ -8,6 +8,29 @@ npm run dev    # or pnpm dev, bun run dev, yarn dev
 
 Dev server on `http://localhost:3000`.
 
+## What's wired
+
+### Launch baseline
+
+- Nitro `routeRules` in `vite.config.ts` emit security headers on every preset: `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` (camera, mic, geolocation off), `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`, `Origin-Agent-Cluster`
+- TanStack Router `defaultPreload: "intent"`: hover prefetches the route's JS chunk and loader data
+- Top header bar with home icon and theme toggle. Semantic `<header>` + `<main id="main">`, working skip link, `prefers-reduced-motion` respected globally
+
+### SEO and social
+
+- `src/lib/seo.ts`: absolute `og:image`, `og:url`, `og:image:width/height`, `twitter:card` auto-promotion
+- Canonical link, `og:site_name`, full Twitter meta, JSON-LD `@graph` (`WebSite` + `SoftwareSourceCode` + `Person`)
+- OG image: 2400×1260 PNG (2x of 1200×630), under 500KB, unfurls on X, Facebook, LinkedIn, Discord, Slack, iMessage
+- `public/sitemap.xml`, `public/robots.txt` with AI training crawler opt-outs (GPTBot, ClaudeBot, CCBot, Google-Extended, Applebot-Extended, Bytespider, meta-externalagent)
+- `public/.well-known/security.txt` per RFC 9116
+- `public/llms.txt` + `public/llms-full.txt`
+
+### PWA + icons
+
+- `favicon.svg` primary + multi-size `favicon.ico` fallback, `apple-touch-icon.png` (180×180)
+- `manifest.webmanifest` with `any`, `maskable`, `monochrome` icons + wide/narrow screenshots
+- `theme-color` per scheme via `media` queries, `color-scheme`, `mobile-web-app-capable`
+
 ## Scripts
 
 ```
@@ -83,7 +106,7 @@ grep -r "ramonclaudio/tanstack-cn\|tanstack-cn.vercel.app" -l --exclude-dir=node
 1. **Edit `src/lib/site.ts`** — change the fallback to your domain. Simplest, no env var needed.
 2. **Set `VITE_SITE_URL` in your platform's env vars** — keeps the source untouched, lets each environment (preview, production) override independently.
 
-If you skip both, the SEO meta will point at `tanstack-cn.vercel.app` from production. Search engines and social cards will be wrong.
+If you skip both, SEO meta will point at `localhost`. Search engines and social cards will be wrong.
 
 ## Project structure
 
@@ -119,6 +142,10 @@ If you skip both, the SEO meta will point at `tanstack-cn.vercel.app` from produ
     ├── styles.css                       # Tailwind v4 + base-luma + reduced-motion
     └── vite-env.d.ts                    # typed import.meta.env
 ```
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs on every push to `main` and every PR. For each of `bun`, `pnpm`, `npm`, `yarn`: install, typecheck, lint, fmt:check, test, build. Any failure on any PM blocks merge. Deploy success is verified by each platform's native check (Vercel commit status, Cloudflare Workers Builds).
 
 ## Deploying
 
