@@ -31,6 +31,9 @@ type PM = "bun" | "pnpm" | "yarn" | "npm"
 const VERBOSE = process.env.VERBOSE === "1" || process.env.VERBOSE === "true"
 
 function detectPackageManager(): PM {
+  // npm_config_user_agent starts with the PM name (e.g. "bun/1.3.13 ..."),
+  // unlike npm_execpath substring checks which are order-dependent because
+  // the pnpm binary path contains "npm".
   const ua = (process.env.npm_config_user_agent ?? "").toLowerCase()
   if (ua.startsWith("bun")) return "bun"
   if (ua.startsWith("pnpm")) return "pnpm"
@@ -41,6 +44,26 @@ function detectPackageManager(): PM {
   if (existsSync("yarn.lock")) return "yarn"
   return "npm"
 }
+
+const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "..")
+process.chdir(REPO)
+
+const PATHS = [
+  "node_modules",
+  "bun.lock",
+  "pnpm-lock.yaml",
+  "yarn.lock",
+  "package-lock.json",
+  ".nitro",
+  ".output",
+  ".tanstack",
+  ".wrangler",
+  ".vinxi",
+  "dist",
+  "dist-ssr",
+  "coverage",
+  "src/routeTree.gen.ts",
+]
 
 /**
  * Run a command. Captures stdout/stderr by default, returns both with the
@@ -80,26 +103,6 @@ function exec(
     proc.once("error", () => finish(1))
   })
 }
-
-const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "..")
-process.chdir(REPO)
-
-const PATHS = [
-  "node_modules",
-  "bun.lock",
-  "pnpm-lock.yaml",
-  "yarn.lock",
-  "package-lock.json",
-  ".nitro",
-  ".output",
-  ".tanstack",
-  ".wrangler",
-  ".vinxi",
-  "dist",
-  "dist-ssr",
-  "coverage",
-  "src/routeTree.gen.ts",
-]
 
 async function step<T>(name: string, fn: () => Promise<T>): Promise<T> {
   const start = performance.now()
