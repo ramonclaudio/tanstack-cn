@@ -122,7 +122,7 @@ If you skip both, the SEO meta will point at `tanstack-cn.vercel.app` from produ
 
 ## Deploying
 
-Nitro auto-detects the platform from build env (`VERCEL`, `NETLIFY`, Cloudflare Workers) and emits the right output. Security headers ship from `routeRules` in `vite.config.ts`, same on every preset.
+Nitro auto-detects the platform from build env (`VERCEL`, `NETLIFY`, Cloudflare Workers) and emits the right output. Security headers ship from `routeRules` in `vite.config.ts`. `VITE_SITE_URL` is build-time, so set it in the platform's env vars before deploys.
 
 Run locally:
 
@@ -133,37 +133,27 @@ npm run start   # Node SSR from .output/
 
 ### Vercel
 
-Vercel offers [zero-configuration support for Nitro](https://vercel.com/changelog/zero-configuration-support-for-nitro). The shipped `vercel.json` is minimal. Nitro emits to `.vercel/output/`, which Vercel picks up via the Build Output API.
-
-CLI:
+Ships `vercel.json`. Deploy via [vercel.com/new](https://vercel.com/new) (import repo, add `VITE_SITE_URL` under Project Settings → Environment Variables) or:
 
 ```bash
 npx vercel link
 npx vercel --prod
-npx vercel env add VITE_SITE_URL production   # paste https://yourdomain.com when prompted
+npx vercel env add VITE_SITE_URL production
 ```
-
-Or via dashboard: import the repo in the [Vercel dashboard](https://vercel.com/new). After connecting your domain: Project Settings → Environment Variables → add `VITE_SITE_URL=https://yourdomain.com` for **Production** (and Preview if you want previews to use the prod domain).
 
 ### Netlify
 
-The shipped `netlify.toml` declares build command (`npm run build`), publish dir (`dist`), and the SSR functions dir (`.netlify/functions-internal`).
-
-CLI:
+Ships `netlify.toml`. Deploy via [app.netlify.com/start](https://app.netlify.com/start) (connect repo, add `VITE_SITE_URL` under Site Settings → Environment Variables) or:
 
 ```bash
-npx netlify init                                              # creates the site, links the repo
+npx netlify init
 npx netlify deploy --prod
 npx netlify env:set VITE_SITE_URL https://yourdomain.com --context production
 ```
 
-Or via dashboard: connect the repo at [app.netlify.com/start](https://app.netlify.com/start). After connecting your domain: Site Settings → Environment Variables → add `VITE_SITE_URL=https://yourdomain.com`.
-
 ### Cloudflare Workers
 
-Cloudflare recommends Workers + Static Assets for new projects (Pages reached feature parity then was effectively superseded in 2026). Nitro picks the `cloudflare-module` preset automatically, emitting `.output/server/index.mjs` (the Worker) plus `.output/public/` (static assets bound to `ASSETS`). The shipped `wrangler.toml` declares `compatibility_date` and `nodejs_compat`. Nitro auto-generates the rest of the deploy config (`.output/server/wrangler.json`) at build time.
-
-CLI:
+Ships `wrangler.toml`. Workers + Static Assets, not Pages (Pages reserves the `ASSETS` binding Nitro needs). Deploy via [dash.cloudflare.com](https://dash.cloudflare.com) → Workers & Pages → Create → Workers (connect repo, set Build command `npm run build` and Deploy command `npx wrangler deploy`, add `VITE_SITE_URL` under Variables and Secrets) or:
 
 ```bash
 npx wrangler login
@@ -171,18 +161,9 @@ VITE_SITE_URL=https://yourdomain.com npm run build
 npx wrangler deploy
 ```
 
-`VITE_SITE_URL` is build-time (Vite inlines `import.meta.env.VITE_*` at build), so it must be in the env when `npm run build` runs. For automated CI deploys via Cloudflare Workers Builds, set it in the dashboard: project Settings → Variables and Secrets → add `VITE_SITE_URL=https://yourdomain.com`. Same setting for all environments unless you split prod/preview.
-
-Or via dashboard: [dash.cloudflare.com](https://dash.cloudflare.com) → Workers & Pages → Create → Workers, connect the repo. Set:
-
-- Build command: `npm run build`
-- Deploy command: `npx wrangler deploy` (or `bunx wrangler deploy`, default for new Workers builds)
-
-Don't create a Pages project for new deployments — Pages reserves the `ASSETS` binding name that Nitro's modern preset uses, which causes deploy to fail.
-
 ### Other platforms
 
-Anywhere Nitro runs: Node, Bun, AWS Lambda, Deno Deploy, etc. Set `NITRO_PRESET` in your build env (e.g. `NITRO_PRESET=node-server`) and run `npm run build`. Output lands in `.output/`.
+Anywhere Nitro runs: Node, Bun, AWS Lambda, Deno Deploy, etc. Set `NITRO_PRESET` (e.g. `NITRO_PRESET=node-server`) and run `npm run build`. Output lands in `.output/`.
 
 Full docs: [`ramonclaudio/tanstack-cn`](https://github.com/ramonclaudio/tanstack-cn).
 
