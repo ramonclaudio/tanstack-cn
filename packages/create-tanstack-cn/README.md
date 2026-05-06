@@ -12,7 +12,7 @@ bunx create-tanstack-cn@latest my-app
 yarn create tanstack-cn my-app
 ```
 
-The CLI copies `templates/default` into your target directory, rewrites `package.json` with your project name (resets version to `0.0.0`, strips template-specific metadata), runs `<package-manager> install`, and inits a git repo with an initial commit. Package manager is detected from `npm_config_user_agent`, falls back to npm.
+The CLI copies `templates/default` into your target, rewrites `package.json` with your project name (version `0.0.0`), runs `<package-manager> install`, and inits a git repo with an initial commit. Package manager is detected from `npm_config_user_agent`.
 
 ## Flags
 
