@@ -185,6 +185,17 @@ function nextSteps(target: string, flags: Flags, pm: PM): void {
   if (!flags.install) console.log(kleur.gray(`  ${pm} install`))
   console.log(kleur.gray(`  ${pm} run dev`))
   console.log()
+  console.log(kleur.bold("Before you deploy:"))
+  console.log(
+    kleur.gray("  edit ") +
+      kleur.cyan("src/lib/site.ts") +
+      kleur.gray(" + ") +
+      kleur.cyan("package.json") +
+      kleur.gray(" metadata, set ") +
+      kleur.cyan("VITE_SITE_URL") +
+      kleur.gray(" on your platform"),
+  )
+  console.log()
   console.log(kleur.gray("Docs: ") + kleur.cyan("https://github.com/ramonclaudio/tanstack-cn"))
   console.log()
 }
