@@ -24,28 +24,6 @@ jobs:
           url: https://tanstack-cn.vercel.app
           expected: ${{ github.sha }}
 
-  netlify:
-    name: Netlify
-    runs-on: ubuntu-latest
-    timeout-minutes: 12
-    steps:
-      - uses: actions/checkout@v6
-      # Netlify cancels duplicate-content builds when the base directory hash
-      # is unchanged. Fire the build hook so every push redeploys regardless.
-      - name: Trigger build hook
-        env:
-          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
-        run: |
-          if [ -z "$HOOK" ]; then
-            echo "::error::NETLIFY_BUILD_HOOK_URL secret not set"
-            exit 1
-          fi
-          curl -fsSL -X POST -d '{}' "$HOOK"
-      - uses: ./.github/actions/wait-for-sha
-        with:
-          url: https://tanstack-cn.netlify.app
-          expected: ${{ github.sha }}
-
   cloudflare:
     name: Cloudflare Workers
     runs-on: ubuntu-latest

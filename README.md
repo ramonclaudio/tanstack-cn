@@ -4,7 +4,6 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/ramonclaudio/tanstack-cn/ci.yml?branch=main&label=ci&style=flat-square&logo=github)](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/ci.yml)
 [![Deploys](https://img.shields.io/github/actions/workflow/status/ramonclaudio/tanstack-cn/deploys.yml?branch=main&label=deploys&style=flat-square&logo=github)](https://github.com/ramonclaudio/tanstack-cn/actions/workflows/deploys.yml)
 [![Vercel](https://img.shields.io/website?url=https%3A%2F%2Ftanstack-cn.vercel.app&label=vercel&logo=vercel&logoColor=white&up_color=black&down_color=red&style=flat-square)](https://tanstack-cn.vercel.app)
-[![Netlify](https://img.shields.io/website?url=https%3A%2F%2Ftanstack-cn.netlify.app&label=netlify&logo=netlify&logoColor=white&up_color=00C7B7&down_color=red&style=flat-square)](https://tanstack-cn.netlify.app)
 [![Cloudflare Workers](https://img.shields.io/website?url=https%3A%2F%2Ftanstack-cn.hello-8fa.workers.dev&label=cloudflare%20workers&logo=cloudflare&logoColor=white&up_color=F38020&down_color=red&style=flat-square)](https://tanstack-cn.hello-8fa.workers.dev)
 
 ![tanstack-cn](templates/default/public/og.png)
@@ -25,17 +24,18 @@ yarn create tanstack-cn my-app
 
 ## Live demos
 
-The same template, deployed to all three supported targets. Every push to `main` auto-deploys to all three, and the [Deploys workflow](.github/workflows/deploys.yml) verifies each URL serves the latest commit before going green.
+The same template, deployed to two supported targets. Every push to `main` auto-deploys to both, and the [Deploys workflow](.github/workflows/deploys.yml) verifies each URL serves the latest commit before going green.
 
 | Platform | URL | Config |
 |---|---|---|
 | Vercel | [tanstack-cn.vercel.app](https://tanstack-cn.vercel.app) | [`vercel.json`](templates/default/vercel.json) |
-| Netlify | [tanstack-cn.netlify.app](https://tanstack-cn.netlify.app) | [`netlify.toml`](templates/default/netlify.toml) |
 | Cloudflare Workers | [tanstack-cn.hello-8fa.workers.dev](https://tanstack-cn.hello-8fa.workers.dev) | [`wrangler.toml`](templates/default/wrangler.toml) |
 
-Each platform has Root Directory pointed at `templates/default`, so the demos build the exact same way your scaffolded `my-app` does. Pick whichever target fits, or deploy to all three. Per-platform deploy steps live in the scaffolded `my-app/README.md`. Cloudflare uses Workers + Static Assets (not Pages — Workers is the modern path Cloudflare recommends as of 2026).
+Each platform has Root Directory pointed at `templates/default`, so the demos build the exact same way your scaffolded `my-app` does. Pick whichever target fits, or deploy to both. Per-platform deploy steps live in the scaffolded `my-app/README.md`. Cloudflare uses Workers + Static Assets (not Pages — Workers is the modern path Cloudflare recommends as of 2026).
 
-Deploy verification works by injecting the commit SHA into a `<meta name="x-commit-sha">` tag at build time. CI polls each production URL and only passes once all three are serving the head commit.
+Scaffolded projects also ship `netlify.toml` for Netlify Functions deploys; we don't run a Netlify demo, but the config is there if you want it.
+
+Deploy verification works by injecting the commit SHA into a `<meta name="x-commit-sha">` tag at build time. CI polls each production URL and only passes once both are serving the head commit.
 
 ## License
 
