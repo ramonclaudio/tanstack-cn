@@ -1,0 +1,47 @@
+name: Deploys
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploys-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  vercel:
+    name: Vercel
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/wait-for-sha
+        with:
+          url: https://tanstack-cn.vercel.app
+          expected: ${{ github.sha }}
+
+  netlify:
+    name: Netlify
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/wait-for-sha
+        with:
+          url: https://tanstack-cn.netlify.app
+          expected: ${{ github.sha }}
+
+  cloudflare:
+    name: Cloudflare Workers
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/wait-for-sha
+        with:
+          url: https://tanstack-cn.hello-8fa.workers.dev
+          expected: ${{ github.sha }}
