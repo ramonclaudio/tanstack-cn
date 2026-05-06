@@ -5,7 +5,7 @@
  * Reinstalls deps via the detected package manager. Runs the verify chain
  * (build, fmt:check, lint, typecheck, test) to confirm the project is clean.
  *
- * PM-agnostic: detects bun/pnpm/yarn/npm via `npm_execpath` or lockfile.
+ * PM-agnostic: detects bun/pnpm/yarn/npm via `npm_config_user_agent` or lockfile.
  * Uses macOS `trash` so anything wiped is recoverable.
  *
  * Usage:
@@ -20,11 +20,11 @@ import { fileURLToPath } from "node:url"
 type PM = "bun" | "pnpm" | "yarn" | "npm"
 
 function detectPackageManager(): PM {
-  const execpath = (process.env.npm_execpath ?? "").toLowerCase()
-  if (execpath.includes("bun")) return "bun"
-  if (execpath.includes("pnpm")) return "pnpm"
-  if (execpath.includes("yarn")) return "yarn"
-  if (execpath.includes("npm")) return "npm"
+  const ua = (process.env.npm_config_user_agent ?? "").toLowerCase()
+  if (ua.startsWith("bun")) return "bun"
+  if (ua.startsWith("pnpm")) return "pnpm"
+  if (ua.startsWith("yarn")) return "yarn"
+  if (ua.startsWith("npm")) return "npm"
   if (existsSync("bun.lock")) return "bun"
   if (existsSync("pnpm-lock.yaml")) return "pnpm"
   if (existsSync("yarn.lock")) return "yarn"
